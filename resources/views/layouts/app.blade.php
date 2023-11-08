@@ -21,7 +21,19 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+            {{-- @livewire('navigation-menu') --}}
+            @if (auth()->user()->role_id == 1)
+                @include('backend.superadmin.navigation-menu')
+            @endif
+            @if (auth()->user()->role_id == 2)
+                @include('backend.admin.navigation-menu')
+            @endif
+            @if (auth()->user()->role_id == 3)
+                @include('backend.teacher.navigation-menu')
+            @endif
+            @if (auth()->user()->role_id == 4)
+                @include('backend.student.navigation-menu')
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))
