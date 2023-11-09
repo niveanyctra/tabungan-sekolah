@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::get('/dashboard', function () {
             return view('backend.admin.dashboard');
         })->name('dashboard');
+        Route::resource('users', UserController::class);
         Route::resource('status', StatusController::class);
+        Route::get('konfirmasi-siswa/{id}', [StatusController::class, 'konfirmasiSiswa'])->name('konfirmasi.siswa');
     });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:teacher'])->group(function () {

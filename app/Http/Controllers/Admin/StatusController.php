@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class StatusController extends Controller
 {
@@ -12,7 +14,21 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+
+        $users = User::where('role_id', 4)->orderby('status')->get();
+        return view('backend.admin.status.index', compact('users'));
+    }
+    public function konfirmasiSiswa($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.users.index')->with('error', 'User tidak ditemukan.');
+        }
+
+        $user->update(['status' => true]);
+
+        return redirect()->route('admin.status.index')->with('success', 'Siswa berhasil dikonfirmasi.');
     }
 
     /**
