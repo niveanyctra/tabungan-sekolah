@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,19 +22,26 @@ Route::middleware(['auth:sanctum', 'verified', 'status:true'])->get('/waiting', 
 })->name('waiting');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:superadmin'])->group(function () {
-    Route::get('/superadmin/dashboard', function () {
-        return view('backend.superadmin.dashboard');
-    })->name('superadmin-dashboard');
+    Route::group(['prefix' => 'superadmin', 'as'=> 'superadmin.'], function () {
+        Route::get('/dashboard', function () {
+            return view('backend.superadmin.dashboard');
+        })->name('dashboard');
+    });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('backend.admin.dashboard');
-    })->name('admin-dashboard');
+    Route::group(['prefix' => 'admin', 'as'=> 'admin.'], function () {
+        Route::get('/dashboard', function () {
+            return view('backend.admin.dashboard');
+        })->name('dashboard');
+        Route::resource('status', StatusController::class);
+    });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:teacher'])->group(function () {
-    Route::get('/teacher/dashboard', function () {
-        return view('backend.teacher.dashboard');
-    })->name('teacher-dashboard');
+    Route::group(['prefix' => 'teacher', 'as'=> 'teacher.'], function () {
+        Route::get('/dashboard', function () {
+            return view('backend.teacher.dashboard');
+        })->name('dashboard');
+    });
 });
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student', 'status:false'])->group(function () {

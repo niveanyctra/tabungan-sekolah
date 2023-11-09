@@ -24,13 +24,13 @@ class RedirectIfAuthenticated
                 $user = Auth::user();
 
                 if ($user->role_id == 1) {
-                    return redirect('/superadmin/dashboard');
+                    return redirect()->route('superadmin.dashboard');
                 }
                 else if ($user->role_id == 2) {
-                    return redirect('/admin/dashboard');
+                    return redirect()->route('admin.dashboard');
                 }
                 else if ($user->role_id == 3) {
-                    return redirect('/teacher/dashboard');
+                    return redirect()->route('teacher.dashboard');
                 }
                 else if ($user->role_id == 4) {
                     return redirect('/tabungan-sekolah');
