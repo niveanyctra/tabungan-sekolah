@@ -15,7 +15,7 @@ class StatusController extends Controller
     public function index()
     {
 
-        $users = User::where('role_id', 4)->orderby('status')->get();
+        $users = User::with(['student', 'student.classroom', 'student.classroom.vocational'])->where('role_id', 4)->orderby('status')->get();
         return view('backend.admin.status.index', compact('users'));
     }
     public function konfirmasiSiswa($id)

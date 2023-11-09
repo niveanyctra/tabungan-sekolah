@@ -17,8 +17,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th data-priority="1">Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Jurusan</th>
                                         <th width=20%">Email Verification</th>
-                                        <th width="15%">Status</th>
+                                        <th width="15%" data-priority="2">Status</th>
                                         <th width="17%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -27,6 +29,28 @@
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $user->name }}</td>
+                                            <td class="py-2">
+                                                @if ($user->student)
+                                                    @if ($user->student->classroom)
+                                                        {{ $user->student->classroom->name }}
+                                                    @else
+                                                        <span class="badge text-bg-danger">Kelas Not Found</span>
+                                                    @endif
+                                                @else
+                                                    <span class="badge text-bg-danger">Siswa Not Found</span>
+                                                @endif
+                                            </td>
+                                            <td class="py-2">
+                                                @if ($user->student)
+                                                    @if ($user->student->classroom)
+                                                        {{ $user->student->classroom->vocational->name }}
+                                                    @else
+                                                        <span class="badge text-bg-danger">Jurusan Not Found</span>
+                                                    @endif
+                                                @else
+                                                    <span class="badge text-bg-danger">Siswa Not Found</span>
+                                                @endif
+                                            </td>
                                             <td class="py-2 text-center">
                                                 @if ($user->email_verified_at)
                                                     <span class="badge text-bg-primary">Verified</span>
@@ -47,7 +71,8 @@
                                                         <a href="{{ route('admin.konfirmasi.siswa', $user->id) }}"
                                                             class="btn btn-sm btn-success">Konfirmasi</a>
                                                     @else
-                                                        <div class="btn disabled btn-sm btn-secondary">Siswa sudah aktif</div>
+                                                        <div class="btn disabled btn-sm btn-secondary">Siswa sudah aktif
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </td>
