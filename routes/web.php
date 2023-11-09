@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/register');
 
+
+Route::middleware(['auth:sanctum', 'verified', 'status:true'])->get('/waiting', function () {
+    return view('waiting');
+})->name('waiting');
+
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:superadmin'])->group(function () {
     Route::get('/superadmin/dashboard', function () {
         return view('backend.superadmin.dashboard');
@@ -31,20 +36,20 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     })->name('teacher-dashboard');
 });
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student'])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student', 'status:false'])->group(function () {
     Route::get('/tabungan-sekolah', function () {
         return view('backend.student.dashboard');
     })->name('tabungan-sekolah');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as'=> 'student.'], function () {
-        Route::resource('lessons', LessonController::class);
-    });
-    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as'=> 'teacher.'], function () {
-        Route::resource('courses', CourseController::class);
-    });
-    Route::group(['middleware' => 'role:admin||superadmin', 'prefix' => 'admin', 'as'=> 'admin.'], function () {
-        Route::resource('users', UserController::class);
-    });
-});
+// Route::group(['middleware' => 'auth'], function () {
+//     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as'=> 'student.'], function () {
+//         Route::resource('lessons', LessonController::class);
+//     });
+//     Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as'=> 'teacher.'], function () {
+//         Route::resource('courses', CourseController::class);
+//     });
+//     Route::group(['middleware' => 'role:admin||superadmin', 'prefix' => 'admin', 'as'=> 'admin.'], function () {
+//         Route::resource('users', UserController::class);
+//     });
+// });
