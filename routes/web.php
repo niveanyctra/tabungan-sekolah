@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/tabungan-sekolah', function () {
         return view('backend.student.dashboard');
     })->name('tabungan-sekolah');
+    Route::resource('transaksi', TransaksiController::class);
+    // Route::get('/transaksi',[TransaksiController::class,'index'])->name('transaksiIndex');
 });
 
 // Route::group(['middleware' => 'auth'], function () {
