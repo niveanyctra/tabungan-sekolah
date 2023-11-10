@@ -29,6 +29,24 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            <div class="mt-4">
+                <x-label for="vocational_id" value="{{ __('Jurusan') }}" />
+                <select id="vocational" name="vocational_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                    <option value="">Pilih Jurusan</option>
+                    <option disabled>----------</option>
+                    @foreach ($vocationals as $vocational)
+                    <option value="{{ $vocational->id }}">{{ $vocational->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <x-label for="classroom_id" value="{{ __('Kelas') }}" />
+                <select id="kelas" disabled name="classroom_id" class="form-control @error('classroom_id') is-invalid @enderror">
+                    <option value="">Pilih Jurusan Terlebih Dahulu</option>
+                </select>
+            </div>
+
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-label for="terms">
@@ -57,4 +75,34 @@
             </div>
         </form>
     </x-authentication-card>
+    <script>
+        document.getElementById('vocational').addEventListener('change', function () {
+        var vocationalId = this.value;
+        var kelasSelect = document.getElementById('kelas');
+
+        // Clear existing options
+        kelasSelect.innerHTML = '';
+
+        // If vocational is selected, fetch kelas
+        if (vocationalId) {
+            fetch('/get-classroom-by-vocational/' + vocationalId)
+                .then(response => response.json())
+                .then(data => {
+                    // Enable the kelas select
+                    kelasSelect.removeAttribute('disabled');
+
+                    // Populate kelas options
+                    data.forEach(kelas => {
+                        var option = document.createElement('option');
+                        option.value = kelas.id;
+                        option.text = kelas.name;
+                        kelasSelect.add(option);
+                    });
+                });
+        } else {
+            // If no vocational is selected, disable and clear kelas select
+            kelasSelect.setAttribute('disabled', true);
+        }
+    });
+    </script>
 </x-guest-layout>
