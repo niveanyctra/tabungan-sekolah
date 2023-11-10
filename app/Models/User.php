@@ -70,4 +70,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(StudentProfile::class, 'id', 'id');
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user) {
+            // Delete the associated student when the user is deleted
+            $user->student()->delete();
+        });
+    }
 }

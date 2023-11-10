@@ -1,10 +1,9 @@
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('User') }}
         </h2>
     </x-slot>
-    <x-alert />
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -15,6 +14,7 @@
                             Tambah Data Pengguna Baru
                         </a>
                     </div>
+                    <x-alert />
                     <div class="bg-seconday">
                         <div class="">
                             <table id="myTable" class="ui celled table nowrap unstackable" style="width:100%">
@@ -38,8 +38,33 @@
                                                 <td class="py-2">{{ $user->password_hint }}</td>
                                             @endif
                                             <td class="py-2 fw-bold">
-                                                {{ $user->roles->name }}
+                                                @switch($user->roles->name)
+                                                    @case('SuperAdmin')
+                                                        <span class="badge text-bg-info">
+                                                            Super Admin
+                                                        </span>
+                                                    @break
 
+                                                    @case('Administrator')
+                                                        <span class="badge text-bg-primary">
+                                                            Administrator
+                                                        </span>
+                                                    @break
+
+                                                    @case('Teacher')
+                                                        <span class="badge text-bg-success">
+                                                            Teacher
+                                                        </span>
+                                                    @break
+
+                                                    @case('Student')
+                                                        <span class="badge text-bg-light">
+                                                            Student
+                                                        </span>
+                                                    @break
+
+                                                    @default
+                                                @endswitch
                                             </td>
                                             <td class="py-2">
                                                 <div class="d-flex justify-content-end" style="gap: 5px">
@@ -52,6 +77,8 @@
                                                             class="btn btn-sm btn-danger btn-delete">
                                                             Hapus
                                                         </button>
+                                                    @else
+                                                        <div class="btn btn-sm btn-secondary disabled">Hapus</div>
                                                     @endif
                                                 </div>
                                             </td>

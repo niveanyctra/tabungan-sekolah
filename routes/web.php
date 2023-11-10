@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\StatusController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\StatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,10 @@ use App\Http\Controllers\TransaksiController;
 
 Route::redirect('/', '/register');
 
+Route::get('get-classroom-by-vocational/{vocational_id}', [UserController::class, 'getKelasByJurusan']);
+Route::get('/get-vocationals', [UserController::class, 'getVocationals']);
+Route::get('/get-classrooms/{vocationalId}', [UserController::class, 'getClassrooms']);
+Route::get('/get-vocational-and-classrooms/{role}', [UserController::class, 'getVocationalAndClassrooms']);
 
 Route::middleware(['auth:sanctum', 'verified', 'status:true'])->get('/waiting', function () {
     return view('waiting');
