@@ -10,10 +10,10 @@ class StudentProfile extends Model
     use HasFactory;
 
     protected $table = 'student_profiles';
-
+    
     protected $fillable = [
         'classroom_id',
-        'total'
+        'jumlah'
     ];
 
     public function classroom()

@@ -39,7 +39,19 @@ class UserSeeder extends Seeder
                 // 'username' => 'student',
                 'email' => 'student@example.com',
                 'role_id' =>  4,
-            ]
+            ],
+            [
+                'name' => 'RafRizu',
+                // 'username' => 'student',
+                'email' => 'thisrafi10@gmail.com',
+                'role_id' =>  4,
+            ],
+            // [
+            //     'name' => 'Students',
+            //     // 'username' => 'student',
+            //     'email' => 'student@example.com',
+            //     'role_id' =>  4,
+            // ],
         ];
 
         foreach ($user as $data){
@@ -50,6 +62,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now()->format('Y-m-d'),
                 'password' => Hash::make('password'),
                 'password_hint' => 'password',
+                'status' => 1,
                 'role_id' => $data['role_id'],
                 'created_at' => Carbon::now()->format('Y-m-d'),
                 'updated_at' => Carbon::now()->format('Y-m-d'),

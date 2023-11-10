@@ -52,8 +52,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/tabungan-sekolah', function () {
         return view('backend.student.dashboard');
     })->name('tabungan-sekolah');
+    Route::get('/transaksi/setor',[TransaksiController::class,'setor'])->name('transaksiSetor');
+    Route::get('/transaksi/tarik',[TransaksiController::class,'tarik'])->name('transaksiTarik');
+    Route::get('/transaksi/transfer',[TransaksiController::class,'transfer'])->name('transaksiTransfer');
+    Route::post('/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
     Route::resource('transaksi', TransaksiController::class);
-    // Route::get('/transaksi',[TransaksiController::class,'index'])->name('transaksiIndex');
 });
 
 // Route::group(['middleware' => 'auth'], function () {
