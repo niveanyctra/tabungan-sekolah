@@ -31,7 +31,7 @@
 
             <div class="mt-4">
                 <x-label for="vocational_id" value="{{ __('Jurusan') }}" />
-                <select id="vocational" name="vocational_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                <select id="vocational" required name="vocational_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                     <option value="">Pilih Jurusan</option>
                     <option disabled>----------</option>
                     @foreach ($vocationals as $vocational)
@@ -42,7 +42,7 @@
 
             <div class="mt-4">
                 <x-label for="classroom_id" value="{{ __('Kelas') }}" />
-                <select id="kelas" disabled name="classroom_id" class="form-control @error('classroom_id') is-invalid @enderror">
+                <select id="kelas" disabled required name="classroom_id" class="form-control @error('classroom_id') is-invalid @enderror">
                     <option value="">Pilih Jurusan Terlebih Dahulu</option>
                 </select>
             </div>
