@@ -195,7 +195,10 @@ class UserController extends Controller
 
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->password = Hash::make($request->password);
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+                $user->password_hint = $request->password;
+            }
             $user->role_id = $request->role_id;
 
             // Check if the user has a student record
@@ -219,7 +222,10 @@ class UserController extends Controller
 
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->password = Hash::make($request->password);
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+                $user->password_hint = $request->password;
+            }
             $user->role_id = $request->role_id;
             $user->save();
         }

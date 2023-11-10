@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
                 $user = Auth::user();
 
                 if ($user->role_id == 1) {
-                    return redirect()->route('superadmin.dashboard');
+                    return redirect()->route('admin.dashboard');
                 }
                 else if ($user->role_id == 2) {
                     return redirect()->route('admin.dashboard');
