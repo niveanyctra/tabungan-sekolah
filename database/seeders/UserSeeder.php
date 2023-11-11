@@ -46,6 +46,12 @@ class UserSeeder extends Seeder
                 'email' => 'thisrafi10@gmail.com',
                 'role_id' =>  4,
             ],
+            [
+                'name' => 'Rafhehehe',
+                // 'username' => 'student',
+                'email' => 'rafrizu11@gmail.com',
+                'role_id' =>  4,
+            ],
             // [
             //     'name' => 'Students',
             //     // 'username' => 'student',

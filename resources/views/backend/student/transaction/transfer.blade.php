@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading fw-semibold fs-5">Mau Setor Berapa Hari Ini?</div>
+                            <div class="panel-heading fw-semibold fs-5">Mau Transfer Berapa Hari Ini?</div>
 
                             <div class="panel-body">
                                 @if (session('success'))
@@ -38,14 +38,14 @@
                                     </div>
                                 @endif
 
-                                <form class="form-horizontal" method="POST" action="{{route('transaksi.store')}}">
+                                <form class="form-horizontal" method="POST" action="{{route('transaksiKirim')}}">
                                     @csrf
 
-                                    <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                        <label for="amount" class="col-md-4 control-label">Jumlah</label>
+                                    <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }} my-2">
+                                        <label for="jumlah" class="col-md-4 control-label mb-2">Jumlah</label>
 
                                         <div class="col-md-6">
-                                            <input id="amount" type="number" class="form-control" name="jumlah"
+                                            <input id="jumlah" type="number" class="form-control" name="jumlah"
                                                 value="{{ old('jumlah') }}" required>
 
                                             @if ($errors->has('jumlah'))
@@ -56,29 +56,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group{{ $errors->has('target-transfer') ? ' has-error' : '' }}">
-                                        <label for="target-transfer" class="col-md-4 control-label">Jumlah</label>
+                                        <label for="target-transfer" class="col-md-4 control-label mb-2">Tujuan</label>
 
                                         <div class="col-md-6">
-                                            <input id="target-transfer" type="number" class="form-control" name="jumlah"
-                                                value="{{ old('jumlah') }}" required>
-                                            <select name="target_user_id" id="target-transfer" class="form-control">
-                                                <option value="">
-                                                    
-                                                </option>
-                                            </select>
+                                            <select name="target_user_id" id="target-transfer" class="form-control" required>
+                                                @foreach ($siswa as $ds)
 
-                                            @if ($errors->has('jumlah'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('jumlah') }}</strong>
-                                                </span>
-                                            @endif
+                                                <option value="{{$ds->id}}">
+                                                    {{$ds->name}}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="type" value="Setor">
+                                    <input type="hidden" name="type" value="Transfer">
                                     <div class="form-group my-3">
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="btn btn-info">
-                                                Setor Uang
+                                                Transfer Uang
                                             </button>
                                         </div>
                                     </div>

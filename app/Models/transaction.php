@@ -12,7 +12,15 @@ class Transaction extends Model
 
     protected $fillable = [
         'user_id',
+        'no_transaksi',
+        'target_user_id',
         'type',
         'amount'
     ];
+    public function getNomorTransaksiAttribute()
+    {
+        $totalRecords = self::count(); // Menghitung total record di tabel
+
+        return 'TR-' . str_pad($totalRecords + 1, 5, '0', STR_PAD_LEFT);
+    }
 }

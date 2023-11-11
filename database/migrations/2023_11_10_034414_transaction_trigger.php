@@ -31,7 +31,7 @@ DB::unprepared("
                     WHERE id = NEW.user_id;
                     UPDATE student_profiles
                     SET jumlah = jumlah + NEW.amount
-                    WHERE user_id = transactions.NEW.target_user_id;
+                    WHERE id = NEW.target_user_id;
                 END IF;
             END;
         ");
@@ -44,5 +44,6 @@ DB::unprepared("
     {
         //
         DB::unprepared("DROP TRIGGER IF EXISTS update_student_profile_jumlah");
+
     }
 };

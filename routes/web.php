@@ -60,6 +60,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/transaksi/tarik',[TransaksiController::class,'tarik'])->name('transaksiTarik');
     Route::get('/transaksi/transfer',[TransaksiController::class,'transfer'])->name('transaksiTransfer');
     Route::post('/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
+    Route::post('/transaksi/kirim',[TransaksiController::class,'storeTransfer'])->name('transaksiKirim');
     Route::resource('transaksi', TransaksiController::class);
 });
 

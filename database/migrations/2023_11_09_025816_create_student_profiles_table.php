@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('student_profiles', function (Blueprint $table) {
             $table->foreignId('id')->constrained('users');
             $table->foreignId('classroom_id')->constrained('classrooms');
-            $table->bigInteger('jumlah')->nullable();
+            $table->bigInteger('jumlah')->default(0);
             $table->timestamps();
         });
     }

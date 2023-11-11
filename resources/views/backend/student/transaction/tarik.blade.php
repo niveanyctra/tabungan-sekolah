@@ -41,11 +41,11 @@
                                 <form class="form-horizontal" method="POST" action="{{route('transaksiWithdraw')}}">
                                     @csrf
 
-                                    <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                        <label for="amount" class="col-md-4 control-label">Jumlah</label>
+                                    <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }}">
+                                        <label for="jumlah" class="col-md-4 control-label">Jumlah</label>
 
                                         <div class="col-md-6">
-                                            <input id="amount" type="number" class="form-control" name="jumlah"
+                                            <input id="jumlah" type="number" class="form-control" name="jumlah"
                                                 value="{{ old('jumlah') }}" required>
 
                                             @if ($errors->has('jumlah'))
