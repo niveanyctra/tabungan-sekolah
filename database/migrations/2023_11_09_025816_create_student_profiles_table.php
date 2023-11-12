@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('student_profiles', function (Blueprint $table) {
             $table->foreignId('id')->constrained('users');
-            $table->foreignId('classroom_id')->constrained('classrooms');
+            $table->foreignId('classroom_id')->nullable()->constrained('classrooms')->onDelete('set null');
             $table->bigInteger('jumlah')->default(0);
             $table->timestamps();
         });

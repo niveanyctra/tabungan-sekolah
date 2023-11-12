@@ -10,7 +10,7 @@ class StudentProfile extends Model
     use HasFactory;
 
     protected $table = 'student_profiles';
-    
+
     protected $fillable = [
         'classroom_id',
         'jumlah'
@@ -18,6 +18,6 @@ class StudentProfile extends Model
 
     public function classroom()
     {
-        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id')->withDefault();
     }
 }

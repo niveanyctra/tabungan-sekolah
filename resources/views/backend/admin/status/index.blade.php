@@ -31,7 +31,7 @@
                                             <td class="py-2">{{ $user->name }}</td>
                                             <td class="py-2">
                                                 @if ($user->student)
-                                                    @if ($user->student->classroom)
+                                                    @if ($user->student->classroom_id)
                                                         {{ $user->student->classroom->name }}
                                                     @else
                                                         <span class="badge text-bg-danger">Kelas Not Found</span>
@@ -42,7 +42,7 @@
                                             </td>
                                             <td class="py-2">
                                                 @if ($user->student)
-                                                    @if ($user->student->classroom)
+                                                    @if ($user->student->classroom_id)
                                                         {{ $user->student->classroom->vocational->name }}
                                                     @else
                                                         <span class="badge text-bg-danger">Jurusan Not Found</span>

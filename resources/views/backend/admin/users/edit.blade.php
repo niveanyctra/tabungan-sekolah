@@ -63,10 +63,12 @@
                                 <select id="vocational" name="vocational_id"
                                         class="form-control @error('vocational_id') is-invalid @enderror"
                                         x-model="selectedVocational">
-                                    @if ($user->student && $user->student->classroom)
+                                    @if ($user->student && $user->student->classroom_id)
                                         <option value="{{ $user->student->classroom->vocational_id }}">
                                             {{ $user->student->classroom->vocational->name }}
                                         </option>
+                                        @else
+                                        <option value="">Pilih Jurusan</option>
                                     @endif
                                     <option disabled>----------</option>
                                     @foreach ($vocationals as $vocational)
@@ -86,10 +88,12 @@
                                 <select id="kelas" name="classroom_id"
                                         class="form-control @error('classroom_id') is-invalid @enderror"
                                         x-model="selectedClassroom">
-                                    @if ($user->student && $user->student->classroom)
+                                    @if ($user->student && $user->student->classroom_id)
                                         <option value="{{ $user->student->classroom_id }}">
                                             {{ $user->student->classroom->name }}
                                         </option>
+                                        @else
+                                        <option value="">Pilih Jurusan Terlebih Dahulu</option>
                                     @endif
                                     <option disabled>----------</option>
                                 </select>

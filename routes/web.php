@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ClassroomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\Admin\VocationalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::resource('users', UserController::class);
         Route::resource('status', StatusController::class);
         Route::get('konfirmasi-siswa/{id}', [StatusController::class, 'konfirmasiSiswa'])->name('konfirmasi.siswa');
+        Route::resource('vocationals', VocationalController::class);
+        Route::resource('classrooms', ClassroomController::class);
     });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:teacher'])->group(function () {

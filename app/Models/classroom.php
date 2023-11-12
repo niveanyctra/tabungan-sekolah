@@ -18,4 +18,8 @@ class Classroom extends Model
     {
         return $this->belongsTo(Vocational::class, 'vocational_id', 'id');
     }
+    public function studentProfiles()
+    {
+        return $this->hasMany(StudentProfile::class);
+    }
 }

@@ -28,5 +28,15 @@ class AuthServiceProvider extends ServiceProvider
             $superadmin = $user->role_id === 1;
             return $admin || $superadmin;
         });
+        Gate::define('manage-vocationals', function (User $user) {
+            $admin = $user->role_id === 2;
+            $superadmin = $user->role_id === 1;
+            return $admin || $superadmin;
+        });
+        Gate::define('manage-classrooms', function (User $user) {
+            $admin = $user->role_id === 2;
+            $superadmin = $user->role_id === 1;
+            return $admin || $superadmin;
+        });
     }
 }
