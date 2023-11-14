@@ -22,10 +22,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th data-priority="1">Nama</th>
+                                        <th>Foto User</th>
                                         @if (auth()->user()->role_id == 1)
                                             <th>Password</th>
                                         @endif
-                                        <th>Role</th>
+                                        <th data-priority="2">Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -34,6 +35,10 @@
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $user->name }}</td>
+                                            <td class="py-2">
+                                                <img class="img-fluid" width="50"
+                                                    src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
+                                            </td>
                                             @if (auth()->user()->role_id == 1)
                                                 <td class="py-2">{{ $user->password_hint }}</td>
                                             @endif
@@ -51,9 +56,15 @@
                                                         </span>
                                                     @break
 
-                                                    @case('Teacher')
+                                                    @case('Head of Vocational')
                                                         <span class="badge text-bg-success">
-                                                            Teacher
+                                                            Kepala Jurusan
+                                                        </span>
+                                                    @break
+
+                                                    @case('Homeroom Teacher')
+                                                        <span class="badge text-bg-success">
+                                                            Wali Kelas
                                                         </span>
                                                     @break
 
@@ -61,6 +72,11 @@
                                                         <span class="badge text-bg-light">
                                                             Student
                                                         </span>
+                                                        @if (!$user->student->classroom_id)
+                                                            <div class="badge text-bg-danger">
+                                                                Kelas Not Found
+                                                            </div>
+                                                        @endif
                                                     @break
 
                                                     @default

@@ -22,10 +22,13 @@ class CheckRole
         if ($role == 'admin' && auth()->user()->role_id != 2) {
             abort(403);
         }
-        if ($role == 'teacher' && auth()->user()->role_id != 3) {
+        if ($role == 'hov' && auth()->user()->role_id != 3) {
             abort(403);
         }
-        if ($role == 'user' && auth()->user()->role_id != 4) {
+        if ($role == 'ht' && auth()->user()->role_id != 4) {
+            abort(403);
+        }
+        if ($role == 'user' && auth()->user()->role_id != 5) {
             abort(403);
         }
         return $next($request);

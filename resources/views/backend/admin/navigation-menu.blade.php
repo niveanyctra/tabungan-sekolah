@@ -165,6 +165,18 @@
             <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.status.index') }}" :active="request()->routeIs('admin.status.*')">
+                {{ __('Confirmation') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.vocationals.index') }}" :active="request()->routeIs('admin.vocationals.*')">
+                {{ __('Jurusan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
+                {{ __('Kelas') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

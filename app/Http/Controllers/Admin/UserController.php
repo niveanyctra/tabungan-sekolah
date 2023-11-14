@@ -23,7 +23,12 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = User::with(['roles', 'student', 'student.classroom', 'student.classroom.vocational'])->orderby('role_id')->get();
+        $users = User::with(['roles', 'student', 'student.classroom', 'student.classroom.vocational'])
+        ->get()
+        ->sortBy('student')
+        ->sortBy('name')
+        ->sortBy('student.classroom')
+        ->sortBy('roles.id');
         return view('backend.admin.users.index', compact('users'));
     }
 
@@ -49,7 +54,7 @@ class UserController extends Controller
     }
     public function getVocationalAndClassrooms($role)
     {
-        if ($role == 4) {
+        if ($role == 5) {
             // Replace this with your actual logic to fetch data
             $vocationals = Vocational::all();
             $classroomsByVocational = [];
@@ -100,7 +105,7 @@ class UserController extends Controller
             'role_id.in' => 'Role harus berisi user, admin dll !',
         ]);
 
-        if ($request->role_id == 4) {
+        if ($request->role_id == 5) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [
@@ -116,6 +121,16 @@ class UserController extends Controller
             $user->student()->create([
                 'classroom_id' => $request->classroom_id,
             ]);
+        }
+        else if($request->role_id == 3 || $request->role_id == 4) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'password_hint' => $request->password,
+                'role_id' => $request->role_id,
+            ]);
+            $user->teacher()->create();
         }
         else {
             $user = User::create([
@@ -186,7 +201,7 @@ class UserController extends Controller
             return back()->withError('Password baru tidak sesuai!');
         }
 
-        if ($request->role_id == 4) {
+        if ($request->role_id == 5) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [
@@ -218,6 +233,9 @@ class UserController extends Controller
             // If the new role is not student, remove the student record if exists
             if ($user->student) {
                 $user->student->delete();
+            }
+            if ($user->teacher) {
+                $user->teacher->delete();
             }
 
             $user->name = $request->name;

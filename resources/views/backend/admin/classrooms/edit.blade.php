@@ -12,26 +12,6 @@
                     <form action="{{ route('admin.classrooms.update', $classroom->id) }}" method="post"">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row mb-3" x-show="role_id == 4">
-                            <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                                <select name="vocational_id"
-                                        class="form-control @error('vocational_id') is-invalid @enderror">
-                                        <option value="{{ $classroom->vocational_id }}">
-                                            {{ $classroom->vocational->name }}
-                                        </option>
-                                    <option disabled>----------</option>
-                                    @foreach ($vocationals as $vocational)
-                                        <option value="{{ $vocational->id }}">{{ $vocational->name }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    @error('vocational_id')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group row mb-3">
                             <label class="col-lg-3 col-form-label">Nama <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
@@ -45,7 +25,47 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-3 text-end border-top">
+                        <div class="form-group row mb-3">
+                            <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <select name="vocational_id"
+                                class="form-control @error('vocational_id') is-invalid @enderror">
+                                <option value="{{ $classroom->vocational_id }}">
+                                    {{ $classroom->vocational->name }}
+                                </option>
+                                <option disabled>----------</option>
+                                @foreach ($vocationals as $vocational)
+                                <option value="{{ $vocational->id }}">{{ $vocational->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">
+                                @error('vocational_id')
+                                {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <label class="col-lg-3 col-form-label">Wali Kelas <span class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                            <select name="ht_id"
+                                    class="form-control @error('ht_id') is-invalid @enderror">
+                                    <option value="{{ $classroom->ht_id }}">
+                                        {{ $classroom->ht->user->name }}
+                                    </option>
+                                <option disabled>----------</option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">
+                                @error('ht_id')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 text-end border-top">
                             <span class="text-muted float-start">
                                 <strong class="text-danger">*</strong> Harus diisi
                             </span>

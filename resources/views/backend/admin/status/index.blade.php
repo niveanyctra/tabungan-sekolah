@@ -17,6 +17,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th data-priority="1">Nama</th>
+                                        <th>Foto Siswa</th>
                                         <th>Kelas</th>
                                         <th>Jurusan</th>
                                         <th width=20%">Email Verification</th>
@@ -29,6 +30,11 @@
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $user->name }}</td>
+                                            <td class="py-2">
+                                                <img class="img-fluid" width="50"
+                                                    src="{{ $user->profile_photo_url }}"
+                                                    alt="{{ $user->name }}" />
+                                            </td>
                                             <td class="py-2">
                                                 @if ($user->student)
                                                     @if ($user->student->classroom_id)

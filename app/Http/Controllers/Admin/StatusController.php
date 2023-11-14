@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use Illuminate\Support\Facades\Gate;
 
 class StatusController extends Controller
@@ -14,8 +15,11 @@ class StatusController extends Controller
      */
     public function index()
     {
-
-        $users = User::with(['student', 'student.classroom', 'student.classroom.vocational'])->where('role_id', 4)->orderby('status')->get();
+        $users = User::with(['student', 'student.classroom', 'student.classroom.vocational'])
+        ->where('role_id', 5)
+        ->orderby('status')
+        ->get()
+        ->sortBy('student.classroom.vocational.name');
         return view('backend.admin.status.index', compact('users'));
     }
     public function konfirmasiSiswa($id)

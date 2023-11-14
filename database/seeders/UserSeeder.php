@@ -29,35 +29,35 @@ class UserSeeder extends Seeder
                 'role_id' =>  2,
             ],
             [
-                'name' => 'Teacher',
-                // 'username' => 'teacher',
-                'email' => 'teacher@example.com',
+                'name' => 'Head of Vocational',
+                // 'username' => 'hov',
+                'email' => 'hov@example.com',
                 'role_id' =>  3,
+            ],
+            [
+                'name' => 'Homeroom Teacher',
+                // 'username' => 'homeroom-teacher',
+                'email' => 'homeroom-teacher@example.com',
+                'role_id' =>  4,
             ],
             [
                 'name' => 'Students',
                 // 'username' => 'student',
                 'email' => 'student@example.com',
-                'role_id' =>  4,
+                'role_id' =>  5,
             ],
             [
                 'name' => 'RafRizu',
                 // 'username' => 'student',
                 'email' => 'thisrafi10@gmail.com',
-                'role_id' =>  4,
+                'role_id' =>  5,
             ],
             [
                 'name' => 'Rafhehehe',
                 // 'username' => 'student',
                 'email' => 'rafrizu11@gmail.com',
-                'role_id' =>  4,
+                'role_id' =>  5,
             ],
-            // [
-            //     'name' => 'Students',
-            //     // 'username' => 'student',
-            //     'email' => 'student@example.com',
-            //     'role_id' =>  4,
-            // ],
         ];
 
         foreach ($user as $data){

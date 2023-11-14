@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3" x-show="role_id == 4">
+                        <div class="form-group row mb-3" x-show="role_id == 5">
                             <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="vocational" name="vocational_id"
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3" x-show="role_id == 4">
+                        <div class="form-group row mb-3" x-show="role_id == 5">
                             <label class="col-lg-3 col-form-label">Kelas <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="kelas" name="classroom_id"
@@ -186,7 +186,7 @@
             // Update options when role selection changes
             roleSelect.addEventListener('change', function () {
                 const selectedRoleId = roleSelect.value;
-                if (selectedRoleId === '4') {
+                if (selectedRoleId === '5') {
                     // Make an AJAX request to get the relevant data for vocationals
                     // Replace this URL with the actual endpoint in your application
                     fetch(`/get-vocationals`)

@@ -23,6 +23,7 @@
                                         <th>No</th>
                                         <th data-priority="1">Kelas</th>
                                         <th>Jurusan</th>
+                                        <th>Wali Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -32,6 +33,7 @@
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $classroom->name }}</td>
                                             <td class="py-2">{{ $classroom->vocational->name }}</td>
+                                            <td class="py-2">{{ $classroom->ht->user->name }}</td>
                                             <td class="py-2">
                                                 <div class="d-flex justify-content-end" style="gap: 5px">
                                                     <a href="{{ route('admin.classrooms.edit', $classroom->id) }}"

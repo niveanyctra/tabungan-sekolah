@@ -16,7 +16,8 @@ class ClassroomSeeder extends Seeder
         Classroom::create(
             [
                 'vocational_id' => 1,
-                'name' => 'Contoh Kelas'
+                'name' => 'Contoh Kelas',
+                'ht_id' => 4,
             ]
         );
     }
