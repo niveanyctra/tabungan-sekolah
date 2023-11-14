@@ -54,7 +54,7 @@ class UserController extends Controller
     }
     public function getVocationalAndClassrooms($role)
     {
-        if ($role == 4) {
+        if ($role == 5) {
             // Replace this with your actual logic to fetch data
             $vocationals = Vocational::all();
             $classroomsByVocational = [];
@@ -105,7 +105,7 @@ class UserController extends Controller
             'role_id.in' => 'Role harus berisi user, admin dll !',
         ]);
 
-        if ($request->role_id == 4) {
+        if ($request->role_id == 5) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [
@@ -191,7 +191,7 @@ class UserController extends Controller
             return back()->withError('Password baru tidak sesuai!');
         }
 
-        if ($request->role_id == 4) {
+        if ($request->role_id == 5) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [

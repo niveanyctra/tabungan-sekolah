@@ -26,7 +26,8 @@
                                         @if (auth()->user()->role_id == 1)
                                             <th>Password</th>
                                         @endif
-                                        <th>Role</th>
+                                        <th data-priority="2">Role</th>
+                                        <th>Jurusan/Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -37,8 +38,7 @@
                                             <td class="py-2">{{ $user->name }}</td>
                                             <td class="py-2">
                                                 <img class="img-fluid" width="50"
-                                                    src="{{ $user->profile_photo_url }}"
-                                                    alt="{{ $user->name }}" />
+                                                    src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
                                             </td>
                                             @if (auth()->user()->role_id == 1)
                                                 <td class="py-2">{{ $user->password_hint }}</td>
@@ -57,9 +57,15 @@
                                                         </span>
                                                     @break
 
-                                                    @case('Teacher')
+                                                    @case('Head of Vocational')
                                                         <span class="badge text-bg-success">
-                                                            Teacher
+                                                            Kepala Jurusan
+                                                        </span>
+                                                    @break
+
+                                                    @case('Homeroom Teacher')
+                                                        <span class="badge text-bg-success">
+                                                            Wali Kelas
                                                         </span>
                                                     @break
 
@@ -72,6 +78,29 @@
                                                                 Kelas Not Found
                                                             </div>
                                                         @endif
+                                                    @break
+
+                                                    @default
+                                                @endswitch
+                                            </td>
+                                            <td class="py-2">
+                                                @switch($user->roles->name)
+                                                    @case('SuperAdmin')
+                                                    @break
+
+                                                    @case('Administrator')
+                                                    @break
+
+                                                    @case('Head of Vocational')
+                                                        Jurusan {{ $user->teacher->vocational->name }}
+                                                    @break
+
+                                                    @case('Homeroom Teacher')
+                                                        Kelas {{ $user->teacher->classroom->name }}
+                                                    @break
+
+                                                    @case('Student')
+                                                        Kelas {{ $user->student->classroom->name }}
                                                     @break
 
                                                     @default

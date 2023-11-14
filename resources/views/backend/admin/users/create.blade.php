@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container p-5">
-                    <form action="{{ route('admin.users.store') }}" method="post" x-data="{role_id: 4}">
+                    <form action="{{ route('admin.users.store') }}" method="post" x-data="{role_id: 5}">
                         @csrf
                         <div class="form-group row mb-3">
                             <label class="col-lg-3 col-form-label">Nama <span class="text-danger">*</span></label>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3" x-show="role_id == 4">
+                        <div class="form-group row mb-3" x-show="role_id == 5">
                             <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="vocational" name="vocational_id" class="form-control @error('vocational_id') is-invalid @enderror">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3"  x-show="role_id == 4">
+                        <div class="form-group row mb-3"  x-show="role_id == 5">
                             <label class="col-lg-3 col-form-label">Kelas <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="kelas" disabled name="classroom_id" class="form-control @error('classroom_id') is-invalid @enderror">

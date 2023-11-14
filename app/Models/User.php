@@ -70,6 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(StudentProfile::class, 'id', 'id');
     }
+    public function teacher()
+    {
+        return $this->hasOne(TeacherProfile::class, 'id', 'id');
+    }
     protected static function boot()
     {
         parent::boot();

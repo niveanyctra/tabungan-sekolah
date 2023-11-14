@@ -48,10 +48,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::resource('classrooms', ClassroomController::class);
     });
 });
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:teacher'])->group(function () {
-    Route::group(['prefix' => 'teacher', 'as'=> 'teacher.'], function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:ht'])->group(function () {
+    Route::group(['prefix' => 'homeroom-teacher', 'as'=> 'homeroom-teacher.'], function () {
         Route::get('/dashboard', function () {
-            return view('backend.teacher.dashboard');
+            return view('backend.homeroom-teacher.dashboard');
         })->name('dashboard');
     });
 });

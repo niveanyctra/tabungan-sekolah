@@ -12,6 +12,7 @@ class Classroom extends Model
     protected $fillable = [
         'vocational_id',
         'name',
+        'ht_id',
     ];
 
     public function vocational()
@@ -21,5 +22,9 @@ class Classroom extends Model
     public function studentProfiles()
     {
         return $this->hasMany(StudentProfile::class);
+    }
+    public function ht()
+    {
+        return $this->belongsTo(TeacherProfile::class, 'hov_id', 'id');
     }
 }

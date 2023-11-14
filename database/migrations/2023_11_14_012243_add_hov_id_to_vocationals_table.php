@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->default(5)->constrained();
+        Schema::table('vocationals', function (Blueprint $table) {
+            $table->foreignId('hov_id')->after('id')->constrained('teacher_profiles');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('vocationals', function (Blueprint $table) {
             //
         });
     }

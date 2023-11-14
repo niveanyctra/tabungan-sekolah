@@ -30,9 +30,12 @@ class RedirectIfAuthenticated
                     return redirect()->route('admin.dashboard');
                 }
                 else if ($user->role_id == 3) {
-                    return redirect()->route('teacher.dashboard');
+                    return redirect()->route('hov.dashboard');
                 }
                 else if ($user->role_id == 4) {
+                    return redirect()->route('ht.dashboard');
+                }
+                else if ($user->role_id == 5) {
                     return redirect('/tabungan-sekolah');
                 }
             }

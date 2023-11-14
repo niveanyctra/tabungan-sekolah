@@ -13,6 +13,11 @@ class VocationalSeeder extends Seeder
      */
     public function run(): void
     {
-        Vocational::create(['name' => 'Contoh Jurusan']);
+        Vocational::create(
+            [
+                'name' => 'Contoh Jurusan',
+                'hov_id' => 3,
+            ]
+        );
     }
 }
