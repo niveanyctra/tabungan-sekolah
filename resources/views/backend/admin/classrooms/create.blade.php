@@ -9,12 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container p-5">
-                    <form action="{{ route('admin.classrooms.store') }}" method="post" x-data="{role_id: 4}">
+                    <form action="{{ route('admin.classrooms.store') }}" method="post"">
                         @csrf
-                        <div class="form-group row mb-3" x-show="role_id == 4">
+                        <div class="form-group row mb-3">
                             <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <select id="vocational" name="vocational_id" class="form-control @error('vocational_id') is-invalid @enderror">
+                                <select name="vocational_id" class="form-control @error('vocational_id') is-invalid @enderror">
                                     <option value="">Pilih Jurusan</option>
                                     <option disabled>----------</option>
                                     @foreach ($vocationals as $vocational)
@@ -23,6 +23,23 @@
                                 </select>
                                 <div class="invalid-feedback">
                                     @error('vocational_id')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-lg-3 col-form-label">Wali Kelas <span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <select name="ht_id" class="form-control @error('ht_id') is-invalid @enderror">
+                                    <option value="">Pilih Guru</option>
+                                    <option disabled>----------</option>
+                                    @foreach ($teachers as $teacher)
+                                        <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    @error('ht_id')
                                         {{ $message }}
                                     @enderror
                                 </div>

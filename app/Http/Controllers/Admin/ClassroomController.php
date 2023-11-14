@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Classroom;
 use App\Models\Vocational;
 use Illuminate\Http\Request;
+use App\Models\TeacherProfile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 
@@ -29,7 +30,8 @@ class ClassroomController extends Controller
     public function create()
     {
         $vocationals = Vocational::all();
-        return view('backend.admin.classrooms.create', compact('vocationals'));
+        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '4')->get();
+        return view('backend.admin.classrooms.create', compact('vocationals', 'teachers'));
     }
 
     /**
@@ -38,9 +40,12 @@ class ClassroomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'ht_id' => 'required|unique:classrooms,ht_id',
             'vocational_id' => 'required',
             'name' => 'required|unique:classrooms,name|max:255',
         ], [
+            'ht_id.unique' => 'Guru sudah menjadi wali kelas lain!',
+            'ht_id.required' => 'Guru harus dipilih!',
             'vocational_id.required' => 'Jurusan harus dipilih!',
             'name.required' => 'Nama Kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
@@ -48,6 +53,7 @@ class ClassroomController extends Controller
         ]);
 
         Classroom::create([
+            'ht_id' => $request->ht_id,
             'vocational_id' => $request->vocational_id,
             'name' => $request->name,
         ]);
@@ -70,12 +76,13 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::find($id);
         $vocationals = Vocational::all();
+        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '4')->get();
 
         if (!$classroom) {
             abort(404);
         }
 
-        return view('backend.admin.classrooms.edit', compact('classroom', 'vocationals'));
+        return view('backend.admin.classrooms.edit', compact('classroom', 'vocationals', 'teachers'));
     }
 
     /**
@@ -90,15 +97,19 @@ class ClassroomController extends Controller
         }
 
         $request->validate([
+            'ht_id' => 'required|unique:classrooms,ht_id,' . $classroom->id .'',
             'vocational_id' => 'required',
             'name' => 'required|unique:classrooms,name,' . $classroom->id .'|max:255',
         ], [
+            'ht_id.unique' => 'Guru sudah menjadi wali kelas lain!',
+            'ht_id.required' => 'Guru harus dipilih!',
             'vocational_id.required' => 'Jurusan harus dipilih!',
             'name.required' => 'Nama Kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
             'name.unique' => 'Jurusan Dengan Nama Yang Sama Sudah Tersedia!',
         ]);
 
+        $classroom->ht_id = $request->ht_id;
         $classroom->vocational_id = $request->vocational_id;
         $classroom->name = $request->name;
         $classroom->save();
