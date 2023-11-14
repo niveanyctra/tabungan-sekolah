@@ -23,7 +23,12 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = User::with(['roles', 'student', 'student.classroom', 'student.classroom.vocational'])->orderby('role_id')->get();
+        $users = User::with(['roles', 'student', 'student.classroom', 'student.classroom.vocational'])
+        ->get()
+        ->sortBy('student')
+        ->sortBy('name')
+        ->sortBy('student.classroom')
+        ->sortBy('roles.id');
         return view('backend.admin.users.index', compact('users'));
     }
 
