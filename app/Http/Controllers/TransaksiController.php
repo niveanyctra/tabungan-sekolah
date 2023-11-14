@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\transaction;
 use Illuminate\Http\Request;
 use App\Models\StudentProfile;
@@ -14,8 +15,10 @@ class TransaksiController extends Controller
     public function index(){
         $user = Auth::user(); // Get the authenticated user
         $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
+$trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
+$penerima = User::where('id', $trans->target_user_id)->first();
 
-        return view('backend.student.transaction.index', compact('user', 'profile'));
+        return view('backend.student.transaction.index', compact('user', 'profile','trans','penerima'));
     }
     public function setor(){
         $user = Auth::user(); // Get the authenticated user
@@ -35,6 +38,26 @@ class TransaksiController extends Controller
     }
     public function riwayat(){
         return view('backend.student.transaction.riwayat');
+    }
+    public function bukti(){
+        $user = Auth::user(); // Get the authenticated user
+        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
+        $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
+        $penerima = User::where('id', $trans->target_user_id)->first();
+        // $pdfContent = $this->generatePDFContent($trans);
+        // $pdfFilePath = 'pdfs/' . $trans->no_transaksi . '_document.pdf';
+        // $this->savePDFToStorage($pdfContent, $pdfFilePath);
+        // PDF::loadview('invoice',$trans);
+        return view('backend.student.transaction.bukti', compact('user', 'profile','trans','penerima'));
+    }
+    public function generateBukti(transaksi $trans){
+        $data = [
+            'trans' => $trans,
+        ];
+
+        $pdf = PDF::loadView('pdf', $data);
+
+        return $pdf->download('custom_pdf.pdf');
     }
     public function show($id)
 {

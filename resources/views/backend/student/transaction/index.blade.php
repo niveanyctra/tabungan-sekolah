@@ -9,16 +9,21 @@
                 </x-slot>
                 <div class="panel-body">
                     @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                        <div class="alert alert-success align-content-center">
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                                {{ session('success') }}
+                                <button type="button" class="btn btn-primary float-end " data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Lihat Bukti
+                                </button>
+                            </div>
+                            @endif
+                            @include('backend.student.partials.modalbukti')
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
                     <div class="row">
                         <div class="col-6 d-block mx-auto">
                             <div class="bg-info rounded-4 d-inline-block p-2 mb-3">
@@ -55,6 +60,13 @@
                                 <span class="ms-1">
 
                                     Transfer
+                                </span>
+                            </a>
+                            <a href="{{ url('/transaksi/riwayat/'.$user->id) }}" class="btn btn-xl btn-info ms-3">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span class="ms-1">
+
+                                    Riwayat
                                 </span>
                             </a>
                         </div>

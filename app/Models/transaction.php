@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
@@ -17,6 +18,10 @@ class Transaction extends Model
         'type',
         'amount'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function getNomorTransaksiAttribute()
     {
         $totalRecords = self::count(); // Menghitung total record di tabel
