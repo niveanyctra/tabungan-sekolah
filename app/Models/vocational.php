@@ -10,8 +10,8 @@ class Vocational extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'hov_id',
+        'name',
     ];
 
     public function classrooms()

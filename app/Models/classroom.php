@@ -25,6 +25,6 @@ class Classroom extends Model
     }
     public function ht()
     {
-        return $this->belongsTo(TeacherProfile::class, 'hov_id', 'id');
+        return $this->belongsTo(TeacherProfile::class, 'ht_id', 'id');
     }
 }

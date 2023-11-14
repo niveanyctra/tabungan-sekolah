@@ -22,6 +22,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th data-priority="1">Jurusan</th>
+                                        <th>Kepala Jurusan</th>
                                         <th>Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -31,6 +32,7 @@
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $vocational->name }}</td>
+                                            <td class="py-2">{{ $vocational->hov->user->name }}</td>
                                             <td class="py-2">{{ $vocational->classrooms->count() }} Kelas</td>
                                             <td class="py-2">
                                                 <div class="d-flex justify-content-end" style="gap: 5px">

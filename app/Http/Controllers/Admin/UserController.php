@@ -122,6 +122,16 @@ class UserController extends Controller
                 'classroom_id' => $request->classroom_id,
             ]);
         }
+        else if($request->role_id == 3 || $request->role_id == 4) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'password_hint' => $request->password,
+                'role_id' => $request->role_id,
+            ]);
+            $user->teacher()->create();
+        }
         else {
             $user = User::create([
                 'name' => $request->name,
@@ -223,6 +233,9 @@ class UserController extends Controller
             // If the new role is not student, remove the student record if exists
             if ($user->student) {
                 $user->student->delete();
+            }
+            if ($user->teacher) {
+                $user->teacher->delete();
             }
 
             $user->name = $request->name;

@@ -27,7 +27,6 @@
                                             <th>Password</th>
                                         @endif
                                         <th data-priority="2">Role</th>
-                                        <th>Jurusan/Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -78,29 +77,6 @@
                                                                 Kelas Not Found
                                                             </div>
                                                         @endif
-                                                    @break
-
-                                                    @default
-                                                @endswitch
-                                            </td>
-                                            <td class="py-2">
-                                                @switch($user->roles->name)
-                                                    @case('SuperAdmin')
-                                                    @break
-
-                                                    @case('Administrator')
-                                                    @break
-
-                                                    @case('Head of Vocational')
-                                                        Jurusan {{ $user->teacher->vocational->name }}
-                                                    @break
-
-                                                    @case('Homeroom Teacher')
-                                                        Kelas {{ $user->teacher->classroom->name }}
-                                                    @break
-
-                                                    @case('Student')
-                                                        Kelas {{ $user->student->classroom->name }}
                                                     @break
 
                                                     @default
