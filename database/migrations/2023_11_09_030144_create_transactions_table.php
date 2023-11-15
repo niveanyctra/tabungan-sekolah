@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('no_transaksi');
+            $table->string('no_transaksi')->unique();
             $table->foreignId('user_id')->constrained('users');
             $table->string('type');
-            $table->string('target_user_id');
+            $table->boolean('status')->default(false);
+            // $table->string('target_user_id');
             $table->string('amount');
             $table->timestamps();
         });

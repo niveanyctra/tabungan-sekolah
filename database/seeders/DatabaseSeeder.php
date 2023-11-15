@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\TransactionSeeder;
 use Database\Seeders\StudentProfileSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VocationalSeeder::class);
         $this->call(ClassroomSeeder::class);
         $this->call(StudentProfileSeeder::class);
+        $this->call(TransactionSeeder::class);
     }
 }

@@ -27,6 +27,9 @@
                     <x-nav-link href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
                         {{ __('Kelas') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.adminTransaksiIndex') }}" :active="request()->routeIs('admin.adminTransaksiIndex')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
                 </div>
             </div>
 

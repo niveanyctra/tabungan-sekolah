@@ -44,8 +44,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::resource('users', UserController::class);
         Route::resource('status', StatusController::class);
         Route::get('konfirmasi-siswa/{id}', [StatusController::class, 'konfirmasiSiswa'])->name('konfirmasi.siswa');
+        Route::get('konfirmasi-transaksi/{id}', [TransaksiController::class, 'konfirmasiTransaksi'])->name('konfirmasi.transaksi');
         Route::resource('vocationals', VocationalController::class);
         Route::resource('classrooms', ClassroomController::class);
+        Route::get('/admin/transaksi', [TransaksiController::class,'adminIndex'])->name('adminTransaksiIndex');
     });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:ht'])->group(function () {
@@ -53,6 +55,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::get('/dashboard', function () {
             return view('backend.homeroom-teacher.dashboard');
         })->name('dashboard');
+        Route::get('/transaksi/setor',[TransaksiController::class,'setor'])->name('transaksiSetor');
+        Route::get('/transaksi/tarik',[TransaksiController::class,'tarik'])->name('transaksiTarik');
+        Route::post('/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
+        Route::post('/transaksi/kirim',[TransaksiController::class,'storeTransfer'])->name('transaksiKirim');
     });
 });
 
@@ -60,13 +66,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/tabungan-sekolah', function () {
         return view('backend.student.dashboard');
     })->name('tabungan-sekolah');
-    Route::get('/transaksi/setor',[TransaksiController::class,'setor'])->name('transaksiSetor');
-    Route::get('/transaksi/tarik',[TransaksiController::class,'tarik'])->name('transaksiTarik');
     Route::get('/transaksi/transfer',[TransaksiController::class,'transfer'])->name('transaksiTransfer');
-    Route::get('/transaksi/bukti',[TransaksiController::class,'bukti'])->name('transaksiBukti');
+    Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
     Route::get('/transaksi/riwayat/{id}',[TransaksiController::class,'riwayat'])->name('transaksiRiwayat');
-    Route::post('/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
-    Route::post('/transaksi/kirim',[TransaksiController::class,'storeTransfer'])->name('transaksiKirim');
     Route::resource('transaksi', TransaksiController::class);
 });
 

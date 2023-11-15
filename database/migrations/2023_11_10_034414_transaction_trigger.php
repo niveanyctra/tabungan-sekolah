@@ -25,13 +25,6 @@ DB::unprepared("
                     UPDATE student_profiles
                     SET jumlah = jumlah - NEW.amount
                     WHERE id = NEW.user_id;
-                ELSEIF NEW.type = 'Transfer' THEN
-                    UPDATE student_profiles
-                    SET jumlah = jumlah - NEW.amount
-                    WHERE id = NEW.user_id;
-                    UPDATE student_profiles
-                    SET jumlah = jumlah + NEW.amount
-                    WHERE id = NEW.target_user_id;
                 END IF;
             END;
         ");

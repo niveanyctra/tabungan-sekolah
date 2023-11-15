@@ -16,9 +16,26 @@ class TransaksiController extends Controller
         $user = Auth::user(); // Get the authenticated user
         $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
 $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
-$penerima = User::where('id', $trans->target_user_id)->first();
+// $penerima = User::where('id', $trans->target_user_id)->first();
 
-        return view('backend.student.transaction.index', compact('user', 'profile','trans','penerima'));
+        return view('backend.student.transaction.index', compact('user', 'profile','trans'));
+    }
+    public function adminIndex(){
+        $trans = transaction::with('user')->get();
+        return view('backend.admin.transactions.index',compact('trans'));
+    }
+
+    public function konfirmasiTransaksi($id)
+    {
+        $trans = transaction::find($id);
+
+        if (!$trans) {
+            return redirect()->route('admin.adminTransaksiIndex')->with('error', 'Transaksi tidak ditemukan.');
+        }
+
+        $trans->update(['status' => true]);
+
+        return redirect()->route('admin.adminTransaksiIndex')->with('success', 'Transaksi berhasil dikonfirmasi.');
     }
     public function setor(){
         $user = Auth::user(); // Get the authenticated user
@@ -43,22 +60,22 @@ $penerima = User::where('id', $trans->target_user_id)->first();
         $user = Auth::user(); // Get the authenticated user
         $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
         $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
-        $penerima = User::where('id', $trans->target_user_id)->first();
+        // $penerima = User::where('id', $trans->target_user_id)->first();
         // $pdfContent = $this->generatePDFContent($trans);
         // $pdfFilePath = 'pdfs/' . $trans->no_transaksi . '_document.pdf';
         // $this->savePDFToStorage($pdfContent, $pdfFilePath);
         // PDF::loadview('invoice',$trans);
         return view('backend.student.transaction.bukti', compact('user', 'profile','trans','penerima'));
     }
-    public function generateBukti(transaksi $trans){
-        $data = [
-            'trans' => $trans,
-        ];
+    // public function generateBukti(transaksi $trans){
+    //     $data = [
+    //         'trans' => $trans,
+    //     ];
 
-        $pdf = PDF::loadView('pdf', $data);
+    //     $pdf = PDF::loadView('pdf', $data);
 
-        return $pdf->download('custom_pdf.pdf');
-    }
+    //     return $pdf->download('custom_pdf.pdf');
+    // }
     public function show($id)
 {
     // Logic to retrieve and display a single resource

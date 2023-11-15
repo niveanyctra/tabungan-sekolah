@@ -20,7 +20,6 @@ return new class extends Migration
                 transactions.no_transaksi AS no_transaksi,
                 transactions.type AS type,
                 transactions.amount AS jumlah,
-                transactions.target_user_id AS tujuan,
                 transactions.created_at AS tanggal
             FROM
                 transactions
