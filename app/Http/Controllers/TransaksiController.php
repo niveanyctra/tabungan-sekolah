@@ -65,14 +65,15 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
     //     $siswa = User::where('role_id',4)->where('id','!=',$user->id)->get();
     //     return view('backend.student.transaction.transfer',compact('user','profile','siswa'));
     // }
-    public function riwayat(){
-        return view('backend.student.transaction.riwayat');
+    public function riwayat($id){
+        $trans = transaction::with('user')->where('user_id','=',$id)->where('status',true)->get();
+        return view('backend.student.transaction.riwayat',compact('trans'));
     }
     public function bukti(){
         $user = Auth::user(); // Get the authenticated user
         $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
         $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
-        // $penerima = User::where('id', $trans->target_user_id)->first();
+        $penerima = User::where('id', $trans->target_user_id)->first();
         // $pdfContent = $this->generatePDFContent($trans);
         // $pdfFilePath = 'pdfs/' . $trans->no_transaksi . '_document.pdf';
         // $this->savePDFToStorage($pdfContent, $pdfFilePath);
