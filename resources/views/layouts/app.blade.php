@@ -34,6 +34,9 @@
             @if (auth()->user()->role_id == 4)
                 @include('backend.student.navigation-menu')
             @endif
+            @if (auth()->user()->role_id == 5)
+                @include('backend.student.navigation-menu')
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))
