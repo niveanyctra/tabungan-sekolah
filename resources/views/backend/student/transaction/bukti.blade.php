@@ -22,50 +22,61 @@
     </style>
 </head>
 <body>
+    <div class="container">
+
+        <div class="row" style="max-width: 100vh">
+            <div class="col-2">
+                <img src="{{asset('img/neper_new_logo.png')}}" alt="" width="40px" height="40px">
+            </div>
+            <div class="col-10">
+
+                <h4>Bukti Transaksi</h4>
+            </div>
+        </div>
+            <table class="table table-borderless" style="width: 30%">
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>{{$trans->created_at}}</td>
+                </tr>
+                <tr>
+                    <td>No. Transaksi</td>
+                    <td>:</td>
+                    <td>{{$trans->no_transaksi}}</td>
+                </tr>
+                <tr>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td>{{$trans->user->name}}</td>
+                </tr>
+                @if($trans->type == "Transfer")
+                <tr>
+                    <td>Nama Penerima</td>
+                    <td>:</td>
+                    <td>{{$penerima->name}}</td>
+                </tr>
+                @endif
+                {{-- <tr>
+                    <td>Jurusan :</td>
+                    <td>Tanggal :</td>
+                </tr>
+                <tr>
+                    <td>Kelas :</td>
+                    <td>Tanggal :</td>
+                </tr> --}}
+                <tr>
+                    <td>Tipe</td>
+                    <td>:</td>
+                    <td>{{$trans->type}}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah</td>
+                    <td>:</td>
+                    <td>{{$trans->amount}}</td>
+                </tr>
+            </table>
+    </div>
     {{-- <img src="{{asset('img/neper_new_logo.png')}}" alt=""> --}}
-    <h4>Bukti Transaksi</h4>
-        <table class="table table-borderless">
-            <tr>
-                <td>Tanggal</td>
-                <td>:</td>
-                <td>{{$trans->created_at}}</td>
-            </tr>
-            <tr>
-                <td>No. Transaksi</td>
-                <td>:</td>
-                <td>{{$trans->no_transaksi}}</td>
-            </tr>
-            <tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td>{{$trans->user->name}}</td>
-            </tr>
-            @if($trans->type == "Transfer")
-            <tr>
-                <td>Nama Penerima</td>
-                <td>:</td>
-                <td>{{$penerima->name}}</td>
-            </tr>
-            @endif
-            {{-- <tr>
-                <td>Jurusan :</td>
-                <td>Tanggal :</td>
-            </tr>
-            <tr>
-                <td>Kelas :</td>
-                <td>Tanggal :</td>
-            </tr> --}}
-            <tr>
-                <td>Tipe</td>
-                <td>:</td>
-                <td>{{$trans->type}}</td>
-            </tr>
-            <tr>
-                <td>Jumlah</td>
-                <td>:</td>
-                <td>{{$trans->amount}}</td>
-            </tr>
-        </table>
         <script>
             window.print()
         </script>

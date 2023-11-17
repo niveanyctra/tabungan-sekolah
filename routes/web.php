@@ -74,7 +74,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/tabungan-sekolah', function () {
         return view('backend.student.dashboard');
     })->name('tabungan-sekolah');
-    Route::get('/transaksi/transfer',[TransaksiController::class,'transfer'])->name('transaksiTransfer');
     Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
     Route::get('/transaksi/riwayat/{id}',[TransaksiController::class,'riwayat'])->name('transaksiRiwayat');
     Route::resource('transaksi', TransaksiController::class);
