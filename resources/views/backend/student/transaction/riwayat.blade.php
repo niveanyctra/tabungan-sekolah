@@ -1,44 +1,72 @@
 <x-student-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Riwayat Transaksi') }}
+        </h2>
+    </x-slot>
+    <x-alert />
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-                <x-slot name="header">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ __('Riwayat') }}
-                    </h2>
-                </x-slot>
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container p-5">
-                    <div class="bg-secondary">
-                        <table id="myTable" class="ui celled table nowrap unstackable" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>No. Transaksi</th>
-                                    <th>Nama Pengirim</th>
-                                    <th>Nama Penerima</th>
-                                    <th>Tipe Transaksi</th>
-                                    <th>Jumlah</th>
-                                    <th>Tanggal Transaksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($transaksi as $key => $data)
+                    <div class="bg-seconday">
+                        <div class="">
+                            <table id="myTable" class="ui celled table nowrap unstackable" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th data-priority="1">Nama</th>
+                                        <th>No Transaksi</th>
+                                        <th>Tipe Transaksi</th>
+                                        <th>Jumlah</th>
+                                        <th width="20%">Tanggal</th>
+                                        <th width="8%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($trans as $data)
+                                        <tr>
+                                            <td class="py-2">{{ $loop->iteration }}</td>
+                                            <td class="py-2">{{ $data->user->name }}</td>
+                                            <td class="py-2">{{ $data->no_transaksi }}</td>
+                                            <td class="py-2">{{ $data->type }}</td>
+                                            <td class="py-2">Rp. {{ number_format(intval($data->amount), 0, ',', '.') }}
+                                            </td>
+                                            <td class="py-2">{{ $data->created_at }}</td>
 
-                                @endforeach
-                                <tr>
-                                    <td>{{ $transaksi->firstItem() + $key }}</td>
-                                    <td>{{$transaksi->no_transaksi}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            <td class="py-2">
+                                                <div class="d-flex justify-content-end" style="gap: 5px">
+
+                                                    <a href="{{ route('transaksiBukti', $data->no_transaksi) }}"
+                                                        target="_blank"
+                                                        class="btn btn-sm btn-success">Cetak Bukti</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive: true,
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: -1
+                    }
+                ]
+            });
+        });
+    </script>
 </x-student-layout>
