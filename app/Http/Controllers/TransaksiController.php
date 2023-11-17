@@ -12,6 +12,69 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
+    public function adminSetor($id)
+    {
+        $user = User::find($id);
+        $student = StudentProfile::with('user')->whereRelation('user','id', $user->id)->first();
+        return view('backend.admin.transactions.setor', compact('user','student'));
+    }
+    public function adminStore(Request $request, $id)
+    {
+        $user = StudentProfile::find($id);
+        $totalRecords = transaction::count();
+        $format = 'TR-' . str_pad($totalRecords + 1, 5, '0', STR_PAD_LEFT);
+        $request->validate([
+            'jumlah' => 'required|numeric|min:1000',
+        ],[
+            'jumlah.required' => 'Jumlah Tidak Boleh Kosong.',
+            'jumlah.numeric' => 'Jumlah Harus Berupa Angka.',
+            'jumlah.min' => 'Jumlah Minimal 1000.',
+        ]);
+        transaction::create([
+            'user_id' => $user->id,
+            'no_transaksi' => $format,
+            'target_user_id' => $user->id,
+            'type' => $request->type,
+            'amount' => $request->jumlah,
+            'status' => true,
+        ]);
+        return redirect()->route('admin.students.index')->with('success','Setor Berhasil');
+    }
+    public function adminTarik($id)
+    {
+        $user = User::find($id);
+        $student = StudentProfile::with('user')->whereRelation('user','id', $user->id)->first();
+        return view('backend.admin.transactions.tarik', compact('user','student'));
+    }
+    public function adminWithdraw(Request $request, $id)
+    {
+        $user = StudentProfile::find($id);
+        $totalRecords = transaction::count();
+        $format = 'TR-' . str_pad($totalRecords + 1, 5, '0', STR_PAD_LEFT);
+        $oldval = StudentProfile::where('id', $user->id)->first();
+        $request->validate([
+            'jumlah' => 'required|numeric|min:1000',
+        ],[
+            'jumlah.required' => 'Jumlah Tidak Boleh Kosong.',
+            'jumlah.numeric' => 'Jumlah Harus Berupa Angka.',
+            'jumlah.min' => 'Jumlah Minimal 1000.',
+        ]);
+        if ($request->jumlah > $oldval->jumlah) {
+            # code...
+            return redirect()->back()->with('error','Saldo Tidak Mencukupi');
+        }else {
+            # code...
+            transaction::create([
+                'user_id' => $user->id,
+                'no_transaksi' => $format,
+                'target_user_id' => $user->id,
+                'type' => $request->type,
+                'amount' => $request->jumlah,
+                'status' => true,
+            ]);
+            return redirect()->route('admin.students.index')->with('success','Setor Berhasil');
+        }
+    }
     // All Return View Function
     public function index(){
         $user = Auth::user(); // Get the authenticated user

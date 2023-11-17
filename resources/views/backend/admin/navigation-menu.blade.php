@@ -19,7 +19,7 @@
                         {{ __('User') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('admin.status.index') }}" :active="request()->routeIs('admin.status.*')">
-                        {{ __('Confirmation') }}
+                        {{ __('Activation') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('admin.vocationals.index') }}" :active="request()->routeIs('admin.vocationals.*')">
                         {{ __('Jurusan') }}
@@ -27,8 +27,11 @@
                     <x-nav-link href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
                         {{ __('Kelas') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.students.index') }}" :active="request()->routeIs('admin.students.*')">
+                        {{ __('Siswa') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('admin.adminTransaksiIndex') }}" :active="request()->routeIs('admin.adminTransaksiIndex')">
-                        {{ __('Transaksi') }}
+                        {{ __('Confirmation') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -172,13 +175,19 @@
                 {{ __('User') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.status.index') }}" :active="request()->routeIs('admin.status.*')">
-                {{ __('Confirmation') }}
+                {{ __('Activation') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.vocationals.index') }}" :active="request()->routeIs('admin.vocationals.*')">
                 {{ __('Jurusan') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
                 {{ __('Kelas') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.students.index') }}" :active="request()->url('admin.students.*')">
+                {{ __('Siswa') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.adminTransaksiIndex') }}" :active="request()->routeIs('admin.adminTransaksiIndex')">
+                {{ __('Confirmation') }}
             </x-responsive-nav-link>
         </div>
 
