@@ -32,7 +32,7 @@
                                             <td class="py-2">{{ $data->user->name }}</td>
                                             <td class="py-2">{{ $data->no_transaksi }}</td>
                                             <td class="py-2">{{ $data->type }}</td>
-                                            <td class="py-2">{{ $data->amount }}</td>
+                                            <td class="py-2">{{ number_format(intval($data->amount), 0, ',', '.') }}</td>
                                             <td class="py-2">{{ $data->created_at }}</td>
                                             <td class="py-2 text-center">
                                                 @if ($data->status)

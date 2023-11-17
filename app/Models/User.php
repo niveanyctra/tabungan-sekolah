@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\StudentProfile;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -73,6 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function teacher()
     {
         return $this->hasOne(TeacherProfile::class, 'id', 'id');
+    }
+    public function studentProfile()
+    {
+        return $this->hasOne(StudentProfile::class, 'id', 'id');
     }
     protected static function boot()
     {

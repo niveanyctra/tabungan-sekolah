@@ -41,20 +41,6 @@
                     <h3>Mau Apa Hari Ini?</h3>
                     <div class="row">
                         <div class="col-6 d-block mx-auto mx-5 mt-2">
-                            <a href="{{ route('transaksiSetor') }}" class="btn btn-xl btn-info">
-                                <i class="fa-solid fa-money-bills"></i>
-                                <span class="ms-1">
-
-                                    Setor
-                                </span>
-                            </a>
-                            <a href="{{ route('transaksiTarik') }}" class="btn btn-xl btn-info mx-3">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
-                                <span class="ms-1">
-
-                                    Tarik
-                                </span>
-                            </a>
                             {{-- <a href="{{ route('transaksiTransfer') }}" class="btn btn-xl btn-info">
                                 <i class="fa-solid fa-money-bill-transfer"></i>
                                 <span class="ms-1">

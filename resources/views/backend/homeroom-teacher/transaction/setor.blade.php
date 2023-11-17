@@ -1,4 +1,4 @@
-<x-student-layout>
+<x-teacher-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -11,8 +11,10 @@
                     <div class="col-6 d-block mx-auto">
                         <div class="bg-info rounded-4 d-inline-block p-2 mb-3">
 
-                            <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-wallet"></i> Saldo Kamu : <span
-                                    class="fw-light">{{ number_format(intval($profile->jumlah), 0, ',', '.') }}</span></div>
+                            <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-chalkboard-user pe-2"></i>
+                                Jumlah Siswa :
+                                <span class="fw-semibold">{{ $siswa }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 d-block mx-auto">
@@ -38,9 +40,9 @@
                                     </div>
                                 @endif
 
-                                <form class="form-horizontal" method="POST" action="{{route('transaksi.store')}}">
+                                <form class="form-horizontal" method="POST" action="{{ route('transaksi.store') }}">
                                     @csrf
-
+                                    <input type="hidden" name="user_id" value="{{$transSiswa->studentProfile->id}}">
                                     <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }}">
                                         <label for="jumlah" class="col-md-4 control-label">Jumlah</label>
 
@@ -72,4 +74,5 @@
         </div>
     </div>
 
-</x-student-layout>
+
+</x-teacher-layout>

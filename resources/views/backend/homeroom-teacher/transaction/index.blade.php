@@ -1,81 +1,85 @@
-<x-student-layout>
+<x-teacher-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Transaksi Siswa') }}
+        </h2>
+    </x-slot>
+    <x-alert />
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-                <x-slot name="header">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ __('Transaksi') }}
-                    </h2>
-                </x-slot>
-                <div class="panel-body">
-                    @if (session('success'))
-                        <div class="alert alert-success align-content-center">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="container p-5">
+                    <div class="bg-seconday">
+                        <div class="">
+                            <h3>{{$kelas->vocational->name}}</h3>
+                            <h4>{{$kelas->name}}</h4>
+                            <table id="myTable" class="ui celled table nowrap unstackable" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th data-priority="1">Nama</th>
+                                        <th>Foto Siswa</th>
+                                        <th>Email</th>
+                                        <th>Jumlah</th>
+                                        <th width="8%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($siswa as $data)
+                                        <tr>
+                                            <td class="py-2">{{ $loop->iteration }}</td>
+                                            <td class="py-2">{{ $data->user->name }}</td>
+                                            <td class="py-2">
+                                                <img class="img-fluid" width="50"
+                                                    src="{{ $data->user->profile_photo_url }}" alt="{{ $data->user->name }}" />
+                                            </td>
+                                            <td class="py-2">{{ $data->user->email }}</td>
+                                            <td class="py-2">Rp. {{ number_format(intval($data->jumlah), 0, ',', '.') }}
+                                            </td>
+                                            <td class="py-2">
+                                                {{-- <div class="d-flex justify-content-end" style="gap: 5px">
+                                                    @if ($data->status == '0')
+                                                        <a href="{{ route('admin.konfirmasi.transaksi', $data->id) }}"
+                                                            class="btn btn-sm btn-success">Confirm</a>
+                                                    @else
+                                                        <div class="btn disabled btn-sm btn-secondary">Transaksi
+                                                            Berhasil
+                                                        </div>
+                                                    @endif
 
-                                {{ session('success') }}
-                                <button type="button" class="btn btn-primary float-end " data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Lihat Bukti
-                                </button>
-                            </div>
-                            @endif
-                            {{-- @include('backend.student.partials.modalbukti') --}}
-                            @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                            @endif
-                    <div class="row">
-                        <div class="col-6 d-block mx-auto">
-                            <div class="bg-info rounded-4 d-inline-block p-2 mb-3">
-
-                                <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-wallet"></i> Saldo Kamu :
-                                    <span
-                                        class="fw-light">{{ number_format(intval($profile->jumlah), 0, ',', '.') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 d-block mx-auto">
-
-                        </div>
-                    </div>
-                    <h3>Mau Apa Hari Ini?</h3>
-                    <div class="row">
-                        <div class="col-6 d-block mx-auto mx-5 mt-2">
-                            <a href="{{ route('transaksiSetor') }}" class="btn btn-xl btn-info">
-                                <i class="fa-solid fa-money-bills"></i>
-                                <span class="ms-1">
-
-                                    Setor
-                                </span>
-                            </a>
-                            <a href="{{ route('transaksiTarik') }}" class="btn btn-xl btn-info mx-3">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
-                                <span class="ms-1">
-
-                                    Tarik
-                                </span>
-                            </a>
-                            {{-- <a href="{{ route('transaksiTransfer') }}" class="btn btn-xl btn-info">
-                                <i class="fa-solid fa-money-bill-transfer"></i>
-                                <span class="ms-1">
-
-                                    Transfer
-                                </span>
-                            </a> --}}
-                            <a href="{{ url('/transaksi/riwayat/'.$user->id) }}" class="btn btn-xl btn-info ms-3">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                                <span class="ms-1">
-
-                                    Riwayat
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-6 d-block mx-auto">
-
+                                                </div> --}}
+                                                <a href="{{route('ht.transaksiSetor',$data->user->name)}}" class="btn btn-sm btn-info">
+                                                    Setor
+                                                </a>
+                                                <a href="{{route('ht.transaksiTarik',$data->user->name)}}" class="btn btn-sm btn-warning">
+                                                    Tarik
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-</x-student-layout>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive: true,
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: -1
+                    }
+                ]
+            });
+        });
+    </script>
+</x-teacher-layout>

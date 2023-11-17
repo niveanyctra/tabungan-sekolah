@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Barryvdh\DomPDF\Facade as PDF;
+use App\Models\classroom;
 use App\Models\transaction;
 use Illuminate\Http\Request;
 use App\Models\StudentProfile;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
@@ -19,6 +20,13 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
 // $penerima = User::where('id', $trans->target_user_id)->first();
 
         return view('backend.student.transaction.index', compact('user', 'profile','trans'));
+    }
+    public function teacherIndex(){
+        // $trans = transaction::with('user')->get();
+        $auth = Auth::user();
+        $kelas = classroom::with('ht')->with('vocational')->where('ht_id',$auth->id)->first();
+        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->get();
+        return view('backend.homeroom-teacher.transaction.index',compact('auth','kelas','siswa'));
     }
     public function adminIndex(){
         $trans = transaction::with('user')->get();
@@ -37,22 +45,26 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
 
         return redirect()->route('admin.adminTransaksiIndex')->with('success', 'Transaksi berhasil dikonfirmasi.');
     }
-    public function setor(){
-        $user = Auth::user(); // Get the authenticated user
-        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
-        return view('backend.student.transaction.setor',compact('user','profile'));
+    public function setor($name){
+        $auth = Auth::user();
+        $kelas = classroom::with('ht')->where('ht_id',$auth->id)->first();
+        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->count();
+        $student = StudentProfile::with('user')->get();
+        $transSiswa = User::with('studentProfile')->where('name','=', $name)->first();
+        return view('backend.homeroom-teacher.transaction.setor',compact('auth','kelas','siswa','student','transSiswa'));
     }
-    public function tarik(){
-        $user = Auth::user(); // Get the authenticated user
-        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
-        return view('backend.student.transaction.tarik',compact('user','profile'));
+    public function tarik($name){
+        $auth = Auth::user();
+        $kelas = classroom::with('ht')->where('ht_id',$auth->id)->first();
+        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->count();
+        return view('backend.homeroom-teacher.transaction.tarik',compact('auth','kelas','siswa'));
     }
-    public function transfer(){
-        $user = Auth::user(); // Get the authenticated user
-        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
-        $siswa = User::where('role_id',4)->where('id','!=',$user->id)->get();
-        return view('backend.student.transaction.transfer',compact('user','profile','siswa'));
-    }
+    // public function transfer(){
+    //     $user = Auth::user(); // Get the authenticated user
+    //     $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
+    //     $siswa = User::where('role_id',4)->where('id','!=',$user->id)->get();
+    //     return view('backend.student.transaction.transfer',compact('user','profile','siswa'));
+    // }
     public function riwayat(){
         return view('backend.student.transaction.riwayat');
     }
@@ -96,14 +108,22 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
         'jumlah.min' => 'Jumlah Minimal 1000.',
     ]);
         transaction::create([
-            'user_id' => $user->id,
+            'user_id' => $request->user_id,
             'no_transaksi' => $format,
-            'target_user_id' => $user->id,
             'type' => $request->type,
             'amount' => $request->jumlah,
 
         ]);
-            return redirect()->route('transaksi.index')->with('success','Setor Berhasil');
+
+        if ($user->role_id == 2) {
+            # code...
+            return redirect()->route('admin.adminTransaksiIndex')->with('success','Setor Berhasil');
+        }elseif($user->role_id == 4){
+
+            return redirect()->route('ht.htIndex')->with('success','Setor Berhasil');
+        }
+
+
     }
     public function withdraw(Request $request)
     {
@@ -131,7 +151,7 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
                 'amount' => $request->jumlah,
 
             ]);
-                return redirect()->route('transaksi.index')->with('success','Penarikan Berhasil');
+                return redirect()->back()->with('success','Penarikan Berhasil');
         }
     }
     public function StoreTransfer(Request $request)

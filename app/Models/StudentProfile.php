@@ -20,4 +20,8 @@ class StudentProfile extends Model
     {
         return $this->belongsTo(Classroom::class, 'classroom_id', 'id')->withDefault();
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'id')->withDefault();
+    }
 }
