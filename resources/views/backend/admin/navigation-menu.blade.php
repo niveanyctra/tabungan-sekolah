@@ -30,8 +30,11 @@
                     <x-nav-link href="{{ route('admin.students.index') }}" :active="request()->routeIs('admin.students.*')">
                         {{ __('Siswa') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.adminTransaksiIndex') }}" :active="request()->routeIs('admin.adminTransaksiIndex')">
+                    <x-nav-link href="{{ route('admin.transaction.confirm') }}" :active="request()->routeIs('admin.transaction.confirm')">
                         {{ __('Confirmation') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('admin.transaction.index') }}" :active="request()->routeIs('admin.transaction.index')">
+                        {{ __('Transaction') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -186,8 +189,11 @@
             <x-responsive-nav-link href="{{ route('admin.students.index') }}" :active="request()->url('admin.students.*')">
                 {{ __('Siswa') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.adminTransaksiIndex') }}" :active="request()->routeIs('admin.adminTransaksiIndex')">
+            <x-responsive-nav-link href="{{ route('admin.transaction.confirm') }}" :active="request()->routeIs('admin.transaction.confirm')">
                 {{ __('Confirmation') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.transaction.index') }}" :active="request()->routeIs('admin.transaction.index')">
+                {{ __('Transaction') }}
             </x-responsive-nav-link>
         </div>
 

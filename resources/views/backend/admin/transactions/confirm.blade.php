@@ -21,17 +21,37 @@
                                         <th>Tipe Transaksi</th>
                                         <th>Jumlah</th>
                                         <th width="20%">Tanggal</th>
+                                        <th width="15%" data-priority="2">Status</th>
+                                        <th width="8%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($transactions as $data)
+                                    @foreach ($trans as $data)
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $data->user->name }}</td>
                                             <td class="py-2">{{ $data->no_transaksi }}</td>
                                             <td class="py-2">{{ $data->type }}</td>
                                             <td class="py-2">{{ number_format(intval($data->amount), 0, ',', '.') }}</td>
-                                            <td class="py-2">{{ $data->updated_at }}</td>
+                                            <td class="py-2">{{ $data->created_at }}</td>
+                                            <td class="py-2 text-center">
+                                                @if ($data->status)
+                                                    <span class="badge text-bg-success">Confirmed</span>
+                                                @else
+                                                    <span class="badge text-bg-secondary">Not Confirmed</span>
+                                                @endif
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="d-flex justify-content-end" style="gap: 5px">
+                                                    @if ($data->status == '0')
+                                                        <a href="{{ route('admin.konfirmasi.transaksi', $data->id) }}"
+                                                            class="btn btn-sm btn-success">Confirm</a>
+                                                    @else
+                                                        <div class="btn disabled btn-sm btn-secondary">Transaksi Berhasil
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

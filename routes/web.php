@@ -53,7 +53,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         Route::post('/students/store/{id}', [TransaksiController::class,'adminStore'])->name('students.store');
         Route::get('/students/tarik/{id}', [TransaksiController::class,'adminTarik'])->name('students.tarik');
         Route::post('/students/withdraw/{id}', [TransaksiController::class,'adminWithdraw'])->name('students.withdraw');
-        Route::get('/transaksi', [TransaksiController::class,'adminConfirmation'])->name('adminTransaksiIndex');
+        Route::get('/transaction/confirm', [TransaksiController::class,'adminConfirmation'])->name('transaction.confirm');
+        Route::get('/transaction', [TransaksiController::class,'adminIndex'])->name('transaction.index');
     });
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:ht'])->group(function () {

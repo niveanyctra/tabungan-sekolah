@@ -12,13 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
+    public function adminIndex()
+    {
+        $transactions = transaction::where('status', true)->latest('updated_at')->get();
+
+        return view('backend.admin.transactions.index', compact('transactions'));
+    }
     public function adminConfirmation(){
         $trans = transaction::with('user')
+            ->where('status', false)
             ->orderby('created_at')
             ->orderby('status')
             ->get()
             ->sortBy('status');
-        return view('backend.admin.transactions.index',compact('trans'));
+        return view('backend.admin.transactions.confirm',compact('trans'));
     }
 
     public function konfirmasiTransaksi($id)
