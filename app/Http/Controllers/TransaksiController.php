@@ -12,6 +12,27 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
+    public function adminConfirmation(){
+        $trans = transaction::with('user')
+            ->orderby('created_at')
+            ->orderby('status')
+            ->get()
+            ->sortBy('user.name');
+        return view('backend.admin.transactions.index',compact('trans'));
+    }
+
+    public function konfirmasiTransaksi($id)
+    {
+        $trans = transaction::find($id);
+
+        if (!$trans) {
+            return redirect()->route('admin.adminTransaksiIndex')->with('error', 'Transaksi tidak ditemukan.');
+        }
+
+        $trans->update(['status' => true]);
+
+        return redirect()->route('admin.students.index')->with('success', 'Transaksi berhasil dikonfirmasi.');
+    }
     public function adminSetor($id)
     {
         $user = User::find($id);
@@ -90,23 +111,6 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
         $kelas = classroom::with('ht')->with('vocational')->where('ht_id',$auth->id)->first();
         $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->get();
         return view('backend.homeroom-teacher.transaction.index',compact('auth','kelas','siswa'));
-    }
-    public function adminIndex(){
-        $trans = transaction::with('user')->get();
-        return view('backend.admin.transactions.index',compact('trans'));
-    }
-
-    public function konfirmasiTransaksi($id)
-    {
-        $trans = transaction::find($id);
-
-        if (!$trans) {
-            return redirect()->route('admin.adminTransaksiIndex')->with('error', 'Transaksi tidak ditemukan.');
-        }
-
-        $trans->update(['status' => true]);
-
-        return redirect()->route('admin.adminTransaksiIndex')->with('success', 'Transaksi berhasil dikonfirmasi.');
     }
     public function setor($name){
         $auth = Auth::user();
