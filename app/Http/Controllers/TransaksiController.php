@@ -17,7 +17,7 @@ class TransaksiController extends Controller
             ->orderby('created_at')
             ->orderby('status')
             ->get()
-            ->sortBy('user.name');
+            ->sortBy('status');
         return view('backend.admin.transactions.index',compact('trans'));
     }
 
