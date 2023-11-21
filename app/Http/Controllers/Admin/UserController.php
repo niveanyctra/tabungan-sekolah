@@ -105,7 +105,7 @@ class UserController extends Controller
             'role_id.in' => 'Role harus berisi user, admin dll !',
         ]);
 
-        if ($request->role_id == 5) {
+        if ($request->role_id == 4) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [
@@ -122,7 +122,7 @@ class UserController extends Controller
                 'classroom_id' => $request->classroom_id,
             ]);
         }
-        else if($request->role_id == 3 || $request->role_id == 4) {
+        else if($request->role_id == 3 ) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -201,7 +201,7 @@ class UserController extends Controller
             return back()->withError('Password baru tidak sesuai!');
         }
 
-        if ($request->role_id == 5) {
+        if ($request->role_id == 4) {
             $request->validate([
                 'classroom_id' => 'required',
             ], [

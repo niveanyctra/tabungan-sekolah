@@ -28,8 +28,7 @@ class VocationalController extends Controller
      */
     public function create()
     {
-        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '3')->get();
-        return view('backend.admin.vocationals.create', compact('teachers'));
+        return view('backend.admin.vocationals.create');
     }
 
     /**
@@ -38,18 +37,14 @@ class VocationalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hov_id' => 'required|unique:vocationals,hov_id',
             'name' => 'required|unique:vocationals,name|max:255',
         ], [
             'name.required' => 'Nama harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
             'name.unique' => 'Jurusan Dengan Nama Yang Sama Sudah Tersedia!',
-            'hov_id.required' => 'Harus memilih guru!',
-            'hov_id.unique' => 'Guru sudah menjadi kepala jurusan lain!',
         ]);
 
         Vocational::create([
-            'hov_id' => $request->hov_id,
             'name' => $request->name,
         ]);
 
@@ -70,13 +65,12 @@ class VocationalController extends Controller
     public function edit($id)
     {
         $vocational = Vocational::find($id);
-        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '3')->get();
 
         if (!$vocational) {
             abort(404);
         }
 
-        return view('backend.admin.vocationals.edit', compact('vocational', 'teachers'));
+        return view('backend.admin.vocationals.edit', compact('vocational'));
     }
 
     /**
@@ -91,17 +85,13 @@ class VocationalController extends Controller
         }
 
         $request->validate([
-            'hov_id' => 'required|unique:vocationals,hov_id,' . $vocational->id .'',
             'name' => 'required|unique:vocationals,name,' . $vocational->id .'|max:255',
         ], [
             'name.required' => 'Nama harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
             'name.unique' => 'Jurusan Dengan Nama Yang Sama Sudah Tersedia!',
-            'hov_id.required' => 'Harus memilih guru!',
-            'hov_id.unique' => 'Guru sudah menjadi kepala jurusan lain!',
         ]);
 
-        $vocational->hov_id = $request->hov_id;
         $vocational->name = $request->name;
         $vocational->save();
 

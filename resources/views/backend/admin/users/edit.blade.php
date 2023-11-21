@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3" x-show="role_id == 5">
+                        <div class="form-group row mb-3" x-show="role_id == 4">
                             <label class="col-lg-3 col-form-label">Jurusan <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="vocational" name="vocational_id"
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3" x-show="role_id == 5">
+                        <div class="form-group row mb-3" x-show="role_id == 4">
                             <label class="col-lg-3 col-form-label">Kelas <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <select id="kelas" name="classroom_id"
