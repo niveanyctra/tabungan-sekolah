@@ -122,15 +122,16 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
     public function setor($name){
         $auth = Auth::user();
         $kelas = classroom::with('ht')->where('ht_id',$auth->id)->first();
-        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->count();
+        $iduser = User::with('studentProfile')->where('name','=',$name)->first();
+        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->where('id',$iduser->id)->first();
         $student = StudentProfile::with('user')->get();
         $transSiswa = User::with('studentProfile')->where('name','=', $name)->first();
-        return view('backend.homeroom-teacher.transaction.setor',compact('auth','kelas','siswa','student','transSiswa'));
+        return view('backend.homeroom-teacher.transaction.setor',compact('auth','kelas','siswa','student','transSiswa','iduser'));
     }
     public function tarik($name){
         $auth = Auth::user();
         $kelas = classroom::with('ht')->where('ht_id',$auth->id)->first();
-        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->count();
+        $siswa = StudentProfile::with('classroom')->with('user')->where('classroom_id',$kelas->id)->get();
         return view('backend.homeroom-teacher.transaction.tarik',compact('auth','kelas','siswa'));
     }
     // public function transfer(){
@@ -142,6 +143,13 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
     public function riwayat($id){
         $trans = transaction::with('user')->where('user_id','=',$id)->where('status',true)->get();
         return view('backend.student.transaction.riwayat',compact('trans'));
+    }
+    public function teacherRiwayat(){
+        $auth = Auth::user();
+        $class = classroom::where('ht_id',$auth->id)->first();
+        $riwayat = StudentProfile::where('classroom_id',$class->id)->get();
+        $trans = transaction::with('user')->where('status',true)->get();
+        return view('backend.homeroom-teacher.transaction.riwayat',compact('trans','auth','class','riwayat'));
     }
     public function bukti(){
         $user = Auth::user(); // Get the authenticated user

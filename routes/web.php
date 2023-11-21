@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\ClassroomController;
-use App\Http\Controllers\Admin\StudentController;
+use App\Models\transaction;
+use App\Models\StudentProfile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\ClassroomController;
 use App\Http\Controllers\Admin\VocationalController;
 
 /*
@@ -63,6 +65,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
             return view('backend.homeroom-teacher.dashboard');
         })->name('dashboard');
         Route::get('/homeroom-teacher/transaksi/index',[TransaksiController::class,'teacherIndex'])->name('htIndex');
+        Route::get('/homeroom-teacher/transaksi/riwayat',[TransaksiController::class,'teacherRiwayat'])->name('riwayat');
         Route::get('/homeroom-teacher/transaksi/setor/{name}',[TransaksiController::class,'setor'])->name('transaksiSetor');
         Route::get('/homeroom-teacher/transaksi/tarik/{name}',[TransaksiController::class,'tarik'])->name('transaksiTarik');
         Route::post('/homeroom-teacher/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
@@ -73,7 +76,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student', 'status:false'])->group(function () {
     Route::get('/tabungan-sekolah', function () {
-        return view('backend.student.dashboard');
+                $user = Auth::user(); // Get the authenticated user
+        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
+$trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
+// $penerima = User::where('id', $trans->target_user_id)->first();
+
+        return view('backend.student.dashboard', compact('user', 'profile','trans'));
     })->name('tabungan-sekolah');
     Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
     Route::get('/transaksi/riwayat/{id}',[TransaksiController::class,'riwayat'])->name('transaksiRiwayat');

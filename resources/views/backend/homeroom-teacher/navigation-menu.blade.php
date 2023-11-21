@@ -18,6 +18,9 @@
                     <x-nav-link href="{{ route('ht.htIndex') }}" :active="request()->routeIs('ht.htIndex','ht.transaksiSetor','ht.transaksiTarik')">
                         {{ __('Transaksi') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('ht.riwayat') }}" :active="request()->routeIs('ht.riwayat')">
+                        {{ __('Riwayat') }}
+                    </x-nav-link>
                 </div>
             </div>
 

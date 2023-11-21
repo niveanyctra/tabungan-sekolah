@@ -12,8 +12,8 @@
                         <div class="bg-info rounded-4 d-inline-block p-2 mb-3">
 
                             <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-chalkboard-user pe-2"></i>
-                                Jumlah Siswa :
-                                <span class="fw-semibold">{{ $siswa }}</span>
+                                Jumlah Saldo {{$transSiswa->name}} :
+                                <span class="fw-semibold">{{ number_format(intval($siswa->jumlah), 0, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>

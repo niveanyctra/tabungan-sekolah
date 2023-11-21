@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\transaction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentProfile extends Model
 {
@@ -23,5 +24,9 @@ class StudentProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'id', 'id');
+    }
+    public function transaction()
+    {
+        return $this->hasMany(transaction::class,'user_id','id');
     }
 }
