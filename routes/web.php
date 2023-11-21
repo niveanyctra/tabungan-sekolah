@@ -2,6 +2,7 @@
 
 use App\Models\transaction;
 use App\Models\StudentProfile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Admin\UserController;
@@ -76,15 +77,15 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student', 'status:false'])->group(function () {
     Route::get('/tabungan-sekolah', function () {
-                $user = Auth::user(); // Get the authenticated user
-        $profile = StudentProfile::where('id', $user->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
-$trans = transaction::with('user')->where('user_id', $user->id)->latest()->first();
-// $penerima = User::where('id', $trans->target_user_id)->first();
+                $auth = Auth::user(); // Get the authenticated user
+        $profile = StudentProfile::where('id', $auth->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
+$trans = transaction::with('user')->where('user_id', $auth->id)->latest()->first();
 
-        return view('backend.student.dashboard', compact('user', 'profile','trans'));
+
+        return view('backend.student.dashboard', compact('auth', 'profile','trans'));
     })->name('tabungan-sekolah');
-    Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
     Route::get('/transaksi/riwayat/{id}',[TransaksiController::class,'riwayat'])->name('transaksiRiwayat');
+    Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
     Route::resource('transaksi', TransaksiController::class);
 });
 

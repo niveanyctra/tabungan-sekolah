@@ -2,8 +2,9 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
 use Illuminate\View\View;
+use Illuminate\View\Component;
+use Illuminate\Support\Facades\Auth;
 
 class StudentLayout extends Component
 {
@@ -12,6 +13,7 @@ class StudentLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.student');
+        $auth = Auth::user();
+        return view('layouts.student',compact('auth'));
     }
 }
