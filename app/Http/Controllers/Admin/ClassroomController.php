@@ -30,7 +30,7 @@ class ClassroomController extends Controller
     public function create()
     {
         $vocationals = Vocational::all();
-        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '4')->get();
+        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '3')->get();
         return view('backend.admin.classrooms.create', compact('vocationals', 'teachers'));
     }
 
@@ -76,7 +76,7 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::find($id);
         $vocationals = Vocational::all();
-        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '4')->get();
+        $teachers = TeacherProfile::with('user')->whereRelation('user', 'role_id', '3')->get();
 
         if (!$classroom) {
             abort(404);

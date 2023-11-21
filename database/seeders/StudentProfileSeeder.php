@@ -16,6 +16,12 @@ class StudentProfileSeeder extends Seeder
         //
         $studentProfile = [
             [
+                'id' => 4,
+                // 'username' => 'student',
+                'classroom_id' => 1,
+                'jumlah' =>  50000,
+            ],
+            [
                 'id' => 5,
                 // 'username' => 'student',
                 'classroom_id' => 1,
@@ -23,12 +29,6 @@ class StudentProfileSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                // 'username' => 'student',
-                'classroom_id' => 1,
-                'jumlah' =>  50000,
-            ],
-            [
-                'id' => 7,
                 // 'username' => 'student',
                 'classroom_id' => 1,
                 'jumlah' =>  20000,

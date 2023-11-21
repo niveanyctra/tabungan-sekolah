@@ -56,12 +56,6 @@
                                                         </span>
                                                     @break
 
-                                                    @case('Head of Vocational')
-                                                        <span class="badge text-bg-success">
-                                                            Kepala Jurusan
-                                                        </span>
-                                                    @break
-
                                                     @case('Homeroom Teacher')
                                                         <span class="badge text-bg-success">
                                                             Wali Kelas

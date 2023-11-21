@@ -17,7 +17,7 @@ class ClassroomSeeder extends Seeder
             [
                 'vocational_id' => 1,
                 'name' => 'Contoh Kelas',
-                'ht_id' => 4,
+                'ht_id' => 3,
             ]
         );
     }

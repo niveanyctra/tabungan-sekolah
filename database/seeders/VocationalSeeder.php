@@ -16,7 +16,6 @@ class VocationalSeeder extends Seeder
         Vocational::create(
             [
                 'name' => 'Contoh Jurusan',
-                'hov_id' => 3,
             ]
         );
     }

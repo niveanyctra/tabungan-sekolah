@@ -204,7 +204,7 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
         if ($user->role_id == 2) {
             # code...
             return redirect()->route('admin.adminTransaksiIndex')->with('success','Setor Berhasil');
-        }elseif($user->role_id == 4){
+        }elseif($user->role_id == 3){
 
             return redirect()->route('ht.htIndex')->with('success','Setor Berhasil');
         }

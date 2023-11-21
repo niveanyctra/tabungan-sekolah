@@ -13,23 +13,6 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group row mb-3">
-                            <label class="col-lg-3 col-form-label">Kepala Jurusan <span class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                                <select name="hov_id" class="form-control @error('hov_id') is-invalid @enderror">
-                                    <option value="{{ old('hov_id', $vocational->hov_id) }}">{{ $vocational->hov->user->name }}</option>
-                                    <option disabled>----------</option>
-                                    @foreach ($teachers as $teacher)
-                                        <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    @error('hov_id')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-3">
                             <label class="col-lg-3 col-form-label">Nama <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <input type="text" name="name"

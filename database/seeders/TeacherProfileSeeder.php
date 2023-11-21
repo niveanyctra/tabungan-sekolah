@@ -17,9 +17,6 @@ class TeacherProfileSeeder extends Seeder
             [
                 'id' => 3,
             ],
-            [
-                'id' => 4,
-            ],
         ];
         foreach ($teacherProfiles as $data){
             TeacherProfile::insert([
