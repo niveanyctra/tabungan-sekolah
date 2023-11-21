@@ -11,8 +11,10 @@
                     <div class="col-6 d-block mx-auto">
                         <div class="bg-info rounded-4 d-inline-block p-2 mb-3">
 
-                            <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-wallet"></i> Saldo Kamu : <span
-                                    class="fw-light">{{ number_format(intval($profile->jumlah), 0, ',', '.') }}</span></div>
+                            <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-chalkboard-user pe-2"></i>
+                                Jumlah Saldo {{$transSiswa->name}} :
+                                <span class="fw-semibold">{{ number_format(intval($siswa->jumlah), 0, ',', '.') }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 d-block mx-auto">
@@ -38,7 +40,7 @@
                                     </div>
                                 @endif
 
-                                <form class="form-horizontal" method="POST" action="{{route('transaksiWithdraw')}}">
+                                <form class="form-horizontal" method="POST" action="{{route('ht.transaksiWithdraw')}}">
                                     @csrf
 
                                     <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }}">

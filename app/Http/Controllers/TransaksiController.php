@@ -131,8 +131,11 @@ $trans = transaction::with('user')->where('user_id', $user->id)->latest()->first
     public function tarik($name){
         $auth = Auth::user();
         $kelas = classroom::with('ht')->where('ht_id',$auth->id)->first();
-        $siswa = StudentProfile::with('classroom')->with('user')->where('classroom_id',$kelas->id)->get();
-        return view('backend.homeroom-teacher.transaction.tarik',compact('auth','kelas','siswa'));
+        $iduser = User::with('studentProfile')->where('name','=',$name)->first();
+        $siswa = StudentProfile::with('classroom')->where('classroom_id',$kelas->id)->where('id',$iduser->id)->first();
+        $student = StudentProfile::with('user')->get();
+        $transSiswa = User::with('studentProfile')->where('name','=', $name)->first();
+        return view('backend.homeroom-teacher.transaction.tarik',compact('auth','kelas','siswa','student','transSiswa','iduser'));
     }
     // public function transfer(){
     //     $user = Auth::user(); // Get the authenticated user
