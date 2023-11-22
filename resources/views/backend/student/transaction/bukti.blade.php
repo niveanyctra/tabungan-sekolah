@@ -33,7 +33,7 @@
                 <h4>Bukti Transaksi</h4>
             </div>
         </div>
-            <table class="table table-borderless" style="width: 30%">
+            <table class="table table-borderless" style="width: 50%">
                 <tr>
                     <td>Tanggal</td>
                     <td>:</td>

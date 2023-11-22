@@ -76,12 +76,24 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:student', 'status:false'])->group(function () {
     Route::get('/tabungan-sekolah', function () {
-                $auth = Auth::user(); // Get the authenticated user
+        $auth = Auth::user(); // Get the authenticated user
         $profile = StudentProfile::where('id', $auth->id)->first(); // Assuming 'user_id' is the foreign key linking the user and profile
-$trans = transaction::with('user')->where('user_id', $auth->id)->latest()->first();
+        $trans = transaction::with('user')->where('user_id', $auth->id)->latest()->first();
+        $mskquery = transaction::where('status', true)
+                ->where('type', 'Setor')
+                ->where('user_id',$auth->id)
+                ->whereMonth('updated_at', now()->month)
+                ->get();
+        $msk = $mskquery->sum('amount');
+        $klrquery = transaction::where('status', true)
+                ->where('type', 'Tarik')
+                ->where('user_id',$auth->id)
+                ->whereMonth('updated_at', now()->month)
+                ->get();
+        $klr = $klrquery->sum('amount');
 
 
-        return view('backend.student.dashboard', compact('auth', 'profile','trans'));
+        return view('backend.student.dashboard', compact('auth', 'profile','trans','mskquery','msk','klrquery','klr'));
     })->name('tabungan-sekolah');
     Route::get('/transaksi/riwayat/{id}',[TransaksiController::class,'riwayat'])->name('transaksiRiwayat');
     Route::get('/transaksi/bukti/{no_transaksi}',[TransaksiController::class,'bukti'])->name('transaksiBukti');
