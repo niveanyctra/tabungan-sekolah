@@ -23,8 +23,8 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12">
-                            <h3>Tabungan Masuk <span class="text-success fw-bold ms-3">{{ $masuk->sum('amount') }}</span></h3>
-                            <table id="" class="ui celled table nowrap unstackable" style="width:100%">
+                            <h3>Tabungan Masuk Bulan Ini <span class="text-success fw-bold ms-3">Rp. {{ number_format(intval($masuk->sum('amount')), 0, ',', '.') }}</span></h3>
+                            <table id="masuk" class="ui celled table nowrap unstackable" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -39,15 +39,15 @@
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $data->no_transaksi }}</td>
                                             <td class="py-2">{{ $data->user->name }}</td>
-                                            <td class="py-2">{{ $data->amount }}</td>
+                                            <td class="py-2">Rp. {{ number_format(intval($data->amount), 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-lg-6 col-sm-12">
-                            <h3>Tabungan Keluar <span class="text-danger fw-bold ms-3">{{ $tarik->sum('amount') }}</span></h3>
-                            <table id="" class="ui celled table nowrap unstackable" style="width:100%">
+                            <h3>Tabungan Keluar Bulan Ini <span class="text-danger fw-bold ms-3">Rp. {{ number_format(intval($tarik->sum('amount')), 0, ',', '.') }}</span></h3>
+                            <table id="keluar" class="ui celled table nowrap unstackable" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -62,7 +62,7 @@
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $data->no_transaksi }}</td>
                                             <td class="py-2">{{ $data->user->name }}</td>
-                                            <td class="py-2">{{ $data->amount }}</td>
+                                            <td class="py-2">Rp. {{ number_format(intval($data->amount), 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -103,6 +103,36 @@
                         }
                     }
                 }
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#masuk').DataTable({
+                    responsive: true,
+                    columnDefs: [{
+                            responsivePriority: 1,
+                            targets: 0
+                        },
+                        {
+                            responsivePriority: 2,
+                            targets: -1
+                        }
+                    ]
+                });
+            });
+            $(document).ready(function() {
+                $('#keluar').DataTable({
+                    responsive: true,
+                    columnDefs: [{
+                            responsivePriority: 1,
+                            targets: 0
+                        },
+                        {
+                            responsivePriority: 2,
+                            targets: -1
+                        }
+                    ]
+                });
             });
         </script>
     @endpush

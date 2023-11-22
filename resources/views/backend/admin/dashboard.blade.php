@@ -56,18 +56,47 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <h3 class="text-center">Total Tabungan Tahun Ini <span class="text-primary fw-bold">Rp.
+                            {{ number_format(intval($totalYear), 0, ',', '.') }}</span></h3>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <h3>
+                                Total Tabungan Bulan Ini <br>
+                                <span class="text-primary fw-bold">Rp.
+                                    {{ number_format(intval($totalMonth), 0, ',', '.') }}</span>
+                            </h3>
+                        </div>
+                        <div class="col-4">
+                            <h3>
+                                Uang Masuk <br>
+                                <span class="text-success fw-bold">Rp.
+                                    {{ number_format(intval($masukMonth->sum('amount')), 0, ',', '.') }}</span>
+                            </h3>
+                        </div>
+                        <div class="col-4">
+                            <h3>
+                                Uang Keluar <br>
+                                <span class="text-danger fw-bold">Rp.
+                                    {{ number_format(intval($tarikMonth->sum('amount')), 0, ',', '.') }}</span>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div>
                             <canvas id="myChart" width="400" height="170"></canvas>
                         </div>
                     </div>
                     <div class="col-5">
-                        <h3>Siswa Belum Aktif <span class="text-danger fw-bold ms-3">{{ $tidak_aktif->count() }}</span></h3>
-                        <table id="" class="ui celled table nowrap unstackable" style="width:100%">
+                        <h3>Siswa Belum Aktif <span class="text-danger fw-bold ms-3">{{ $tidak_aktif->count() }}</span>
+                        </h3>
+                        <table id="activate" class="ui celled table nowrap unstackable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th data-priority="1">Nama</th>
-                                    <th width="15%" data-priority="2">Status</th>
+                                    <th width="15%" data-priority="2">Kelas</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,28 +104,24 @@
                                     <tr>
                                         <td class="py-2">{{ $loop->iteration }}</td>
                                         <td class="py-2">{{ $user->name }}</td>
-                                        <td class="py-2 text-center">
-                                            @if ($user->status)
-                                                <span class="badge text-bg-success">Active</span>
-                                            @else
-                                                <span class="badge text-bg-secondary">Inactive</span>
-                                            @endif
-                                        </td>
+                                        <td class="py-2">{{ $user->student->classroom->name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="col-6">
-                        <h3>Konfirmasi Transaksi <span class="text-danger fw-bold ms-3">{{ $trans->count() }}</span></h3>
-                        <table id="" class="ui celled table nowrap unstackable" style="width:100%">
+                        <h3>Konfirmasi Transaksi <span class="text-danger fw-bold ms-3">{{ $trans->count() }}</span>
+                        </h3>
+                        <table id="confirm" class="ui celled table nowrap unstackable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th data-priority="1">Nama</th>
+                                    <th>No Transaksi</th>
                                     <th>Tipe Transaksi</th>
                                     <th>Jumlah</th>
-                                    <th width="15%" data-priority="2">Status</th>
+                                    <th width="15%" data-priority="2">Kelas</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,15 +129,11 @@
                                     <tr>
                                         <td class="py-2">{{ $loop->iteration }}</td>
                                         <td class="py-2">{{ $data->user->name }}</td>
+                                        <td class="py-2">{{ $data->no_transaksi }}</td>
                                         <td class="py-2">{{ $data->type }}</td>
-                                        <td class="py-2">{{ number_format(intval($data->amount), 0, ',', '.') }}</td>
-                                        <td class="py-2 text-center">
-                                            @if ($data->status)
-                                                <span class="badge text-bg-success">Confirmed</span>
-                                            @else
-                                                <span class="badge text-bg-secondary">Not Confirmed</span>
-                                            @endif
+                                        <td class="py-2">Rp. {{ number_format(intval($data->amount), 0, ',', '.') }}
                                         </td>
+                                        <td class="py-2">{{ $data->user->student->classroom->name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -154,21 +175,35 @@
                 }
             });
         </script>
-    @endpush
-    <script>
-        $(document).ready(function() {
-            $('.myTable').DataTable({
-                responsive: true,
-                columnDefs: [{
-                        responsivePriority: 1,
-                        targets: 0
-                    },
-                    {
-                        responsivePriority: 2,
-                        targets: -1
-                    }
-                ]
+        <script>
+            $(document).ready(function() {
+                $('#activate').DataTable({
+                    responsive: true,
+                    columnDefs: [{
+                            responsivePriority: 1,
+                            targets: 0
+                        },
+                        {
+                            responsivePriority: 2,
+                            targets: -1
+                        }
+                    ]
+                });
             });
-        });
-    </script>
+            $(document).ready(function() {
+                $('#confirm').DataTable({
+                    responsive: true,
+                    columnDefs: [{
+                            responsivePriority: 1,
+                            targets: 0
+                        },
+                        {
+                            responsivePriority: 2,
+                            targets: -1
+                        }
+                    ]
+                });
+            });
+        </script>
+    @endpush
 </x-admin-layout>
