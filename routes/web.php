@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\ClassroomController;
 use App\Http\Controllers\Admin\VocationalController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\Admin\VocationalController;
 |
 */
 
-Route::redirect('/', '/register');
+Route::redirect('/', '/login');
 
 Route::get('get-classroom-by-vocational/{vocational_id}', [UserController::class, 'getKelasByJurusan']);
 Route::get('/get-vocationals', [UserController::class, 'getVocationals']);
@@ -42,9 +43,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin||superadmin'])->group(function () {
     Route::group(['prefix' => 'admin', 'as'=> 'admin.'], function () {
-        Route::get('/dashboard', function () {
-            return view('backend.admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
         Route::resource('users', UserController::class);
         Route::resource('status', StatusController::class);
         Route::get('konfirmasi-siswa/{id}', [StatusController::class, 'konfirmasiSiswa'])->name('konfirmasi.siswa');
