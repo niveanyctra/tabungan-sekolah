@@ -41,7 +41,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
         })->name('dashboard');
     });
 });
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin||superadmin'])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
     Route::group(['prefix' => 'admin', 'as'=> 'admin.'], function () {
         Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
         Route::resource('users', UserController::class);
@@ -61,16 +61,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:ht'])->group(function () {
     Route::group(['prefix' => 'homeroom-teacher', 'as'=> 'ht.'], function () {
-        Route::get('/homeroom-teacher/dashboard', function () {
-            return view('backend.homeroom-teacher.dashboard');
-        })->name('dashboard');
-        Route::get('/homeroom-teacher/transaksi/index',[TransaksiController::class,'teacherIndex'])->name('htIndex');
-        Route::get('/homeroom-teacher/transaksi/riwayat',[TransaksiController::class,'teacherRiwayat'])->name('riwayat');
-        Route::get('/homeroom-teacher/transaksi/setor/{name}',[TransaksiController::class,'setor'])->name('transaksiSetor');
-        Route::get('/homeroom-teacher/transaksi/tarik/{name}',[TransaksiController::class,'tarik'])->name('transaksiTarik');
-        Route::post('/homeroom-teacher/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
-        Route::post('/homeroom-teacher/transaksi/store',[TransaksiController::class,'store'])->name('transaksiStore');
-
+        Route::get('/dashboard', [DashboardController::class, 'teacherDashboard'])->name('dashboard');
+        Route::get('/transaksi/index',[TransaksiController::class,'teacherIndex'])->name('htIndex');
+        Route::get('/transaksi/riwayat',[TransaksiController::class,'teacherRiwayat'])->name('riwayat');
+        Route::get('/transaksi/setor/{name}',[TransaksiController::class,'setor'])->name('transaksiSetor');
+        Route::get('/transaksi/tarik/{name}',[TransaksiController::class,'tarik'])->name('transaksiTarik');
+        Route::post('/transaksi/withdraw',[TransaksiController::class,'withdraw'])->name('transaksiWithdraw');
+        Route::post('/transaksi/store',[TransaksiController::class,'store'])->name('transaksiStore');
     });
 });
 

@@ -12,8 +12,6 @@
                 <div class="container p-5">
                     <div class="bg-seconday">
                         <div class="">
-                            <h3>{{$kelas->vocational->name}}</h3>
-                            <h4>{{$kelas->name}}</h4>
                             <table id="myTable" class="ui celled table nowrap unstackable" style="width:100%">
                                 <thead>
                                     <tr>

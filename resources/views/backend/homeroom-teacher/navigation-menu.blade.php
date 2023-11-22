@@ -16,10 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('ht.htIndex') }}" :active="request()->routeIs('ht.htIndex','ht.transaksiSetor','ht.transaksiTarik')">
-                        {{ __('Transaksi') }}
+                        {{ __('Transaksi Siswa') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('ht.riwayat') }}" :active="request()->routeIs('ht.riwayat')">
-                        {{ __('Riwayat') }}
+                        {{ __('Riwayat Siswa') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -147,6 +147,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('ht.dashboard') }}" :active="request()->routeIs('ht.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ht.htIndex') }}" :active="request()->routeIs('ht.htIndex','ht.transaksiSetor','ht.transaksiTarik')">
+                {{ __('Transaksi Siswa') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ht.riwayat') }}" :active="request()->routeIs('ht.riwayat')">
+                {{ __('Riwayat Siswa') }}
             </x-responsive-nav-link>
         </div>
 
