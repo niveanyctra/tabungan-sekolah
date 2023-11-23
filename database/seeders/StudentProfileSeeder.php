@@ -19,19 +19,19 @@ class StudentProfileSeeder extends Seeder
                 'id' => 4,
                 // 'username' => 'student',
                 'classroom_id' => 1,
-                'jumlah' =>  50000,
+                'jumlah' =>  0,
             ],
             [
                 'id' => 5,
                 // 'username' => 'student',
                 'classroom_id' => 1,
-                'jumlah' =>  50000,
+                'jumlah' =>  0,
             ],
             [
                 'id' => 6,
                 // 'username' => 'student',
                 'classroom_id' => 1,
-                'jumlah' =>  20000,
+                'jumlah' =>  0,
             ],
         ];
         foreach ($studentProfile as $data){
