@@ -60,6 +60,11 @@
                                                         <span class="badge text-bg-success">
                                                             Wali Kelas
                                                         </span>
+                                                        @if ($user->teacher->classroom)
+                                                            <div class="badge text-bg-secondary">
+                                                                {{ $user->teacher->classroom->name }}
+                                                            </div>
+                                                        @endif
                                                     @break
 
                                                     @case('Student')
@@ -69,6 +74,10 @@
                                                         @if (!$user->student->classroom_id)
                                                             <div class="badge text-bg-danger">
                                                                 Kelas Not Found
+                                                            </div>
+                                                        @elseif ($user->student->classroom_id)
+                                                            <div class="badge text-bg-secondary">
+                                                                {{ $user->student->classroom->name }}
                                                             </div>
                                                         @endif
                                                     @break
