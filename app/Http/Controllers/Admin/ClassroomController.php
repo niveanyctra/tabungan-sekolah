@@ -16,7 +16,7 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('manage-classrooms')){
+        if (Gate::denies('manage-classrooms')) {
             abort(403);
         }
 
@@ -66,7 +66,7 @@ class ClassroomController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -97,9 +97,9 @@ class ClassroomController extends Controller
         }
 
         $request->validate([
-            'ht_id' => 'required|unique:classrooms,ht_id,' . $classroom->id .'',
+            'ht_id' => 'required|unique:classrooms,ht_id,' . $classroom->id . '',
             'vocational_id' => 'required',
-            'name' => 'required|unique:classrooms,name,' . $classroom->id .'|max:255',
+            'name' => 'required|unique:classrooms,name,' . $classroom->id . '|max:255',
         ], [
             'ht_id.unique' => 'Guru sudah menjadi wali kelas lain!',
             'ht_id.required' => 'Guru harus dipilih!',
@@ -124,11 +124,11 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::find($id);
 
-    if (!$classroom) {
-        abort(404);
-    }
+        if (!$classroom) {
+            abort(404);
+        }
 
-    $classroom->delete();
+        $classroom->delete();
 
         return redirect()->route('admin.classrooms.index')->withSuccess('Pengguna berhasil dihapus!');
     }

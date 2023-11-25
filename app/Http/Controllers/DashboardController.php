@@ -36,18 +36,18 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        $masukYear = transaction::where('status',true)->where('type', 'Setor')
+        $masukYear = transaction::where('status', true)->where('type', 'Setor')
             ->whereYear('updated_at', '=', Carbon::now())
             ->get();
-        $tarikYear = transaction::where('status',true)->where('type', 'Tarik')
+        $tarikYear = transaction::where('status', true)->where('type', 'Tarik')
             ->whereYear('updated_at', '=', Carbon::now())
             ->get();
         $totalYear = $masukYear->sum('amount') - $tarikYear->sum('amount');
 
-        $masukMonth = transaction::where('status',true)->where('type', 'Setor')
+        $masukMonth = transaction::where('status', true)->where('type', 'Setor')
             ->whereMonth('updated_at', '=', Carbon::now())
             ->get();
-        $tarikMonth = transaction::where('status',true)->where('type', 'Tarik')
+        $tarikMonth = transaction::where('status', true)->where('type', 'Tarik')
             ->whereMonth('updated_at', '=', Carbon::now())
             ->get();
         $totalMonth = $masukMonth->sum('amount') - $tarikMonth->sum('amount');
@@ -70,12 +70,12 @@ class DashboardController extends Controller
             // Calculate total transactions for 'Setor' and 'Tarik' for each month
             $setorTotal = Transaction::where('type', 'Setor')
                 ->whereBetween('updated_at', [$firstDayOfMonth, $lastDayOfMonth])
-                ->where('status',true)
+                ->where('status', true)
                 ->sum('amount');
 
             $tarikTotal = Transaction::where('type', 'Tarik')
                 ->whereBetween('updated_at', [$firstDayOfMonth, $lastDayOfMonth])
-                ->where('status',true)
+                ->where('status', true)
                 ->sum('amount');
 
             $chartData['bulan'][] = $month;
@@ -89,8 +89,8 @@ class DashboardController extends Controller
     public function teacherDashboard()
     {
         $teacher = Auth::user();
-        $kelas = Classroom::with('ht')->where('ht_id',$teacher->id)->first();
-        $students = StudentProfile::with('classroom')->whereRelation('classroom', 'ht_id',$teacher->id)->get()->count();
+        $kelas = Classroom::with('ht')->where('ht_id', $teacher->id)->first();
+        $students = StudentProfile::with('classroom')->whereRelation('classroom', 'ht_id', $teacher->id)->get()->count();
 
         $chartData = [
             'bulan' => [], // Add your month data here
@@ -111,14 +111,14 @@ class DashboardController extends Controller
             $setorTotal = Transaction::with(['user', 'user.student'])
                 ->where('type', 'Setor')
                 ->whereBetween('updated_at', [$firstDayOfMonth, $lastDayOfMonth])
-                ->where('status',true)
+                ->where('status', true)
                 ->whereRelation('user.student', 'classroom_id', $kelas->id)
                 ->sum('amount');
 
             $tarikTotal = Transaction::with(['user', 'user.student'])
                 ->where('type', 'Tarik')
                 ->whereBetween('updated_at', [$firstDayOfMonth, $lastDayOfMonth])
-                ->where('status',true)
+                ->where('status', true)
                 ->whereRelation('user.student', 'classroom_id', $kelas->id)
                 ->sum('amount');
 
@@ -127,12 +127,12 @@ class DashboardController extends Controller
             $chartData['type']['Tarik'][] = $tarikTotal;
         }
         $masuk = transaction::with(['user', 'user.student'])
-            ->where('status',true)->where('type', 'Setor')
+            ->where('status', true)->where('type', 'Setor')
             ->whereRelation('user.student', 'classroom_id', $kelas->id)
             ->whereMonth('updated_at', '=', Carbon::now())
             ->get();
         $tarik = transaction::with(['user', 'user.student'])
-            ->where('status',true)->where('type', 'Tarik')
+            ->where('status', true)->where('type', 'Tarik')
             ->whereRelation('user.student', 'classroom_id', $kelas->id)
             ->whereMonth('updated_at', '=', Carbon::now())
             ->get();
