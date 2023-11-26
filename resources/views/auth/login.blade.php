@@ -2,7 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
-            <h3 style="font-weight: bold;">SISTEM TABUNGAN SMKN 1 KOTA CIREBON</h3>
+            <h5 style="font-weight: bold;">SISTEM TABUNGAN SMKN 1 KOTA CIREBON</h5>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

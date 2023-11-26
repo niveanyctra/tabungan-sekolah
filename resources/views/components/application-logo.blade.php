@@ -1,1 +1,1 @@
-<img class="w-30 h-20" src="{{asset('image/logo_smk.png')}}" alt="Terdapat Kesalahan" >
+<img class="w-30 h-20" src="{{asset('img/logo_smk.png')}}" alt="Terdapat Kesalahan" >
