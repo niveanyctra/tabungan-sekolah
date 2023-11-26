@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-blue-500 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,12 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('tabungan-sekolah') }}" :active="request()->routeIs('tabungan-sekolah')">
+                    <x-nav-link class="text-white" href="{{ route('tabungan-sekolah') }}" :active="request()->routeIs('tabungan-sekolah')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (isset($auth))
                         <!-- Your navigation code here -->
-                        <x-nav-link href="{{ url('/transaksi/riwayat/' . $auth->id) }}" :active="request()->routeIs('transaksiRiwayat')">
+                        <x-nav-link  class="text-white" href="{{ url('/transaksi/riwayat/' . $auth->id) }}" :active="request()->routeIs('transaksiRiwayat')">
                             {{ __('Riwayat') }}
                         </x-nav-link>
                     @endif
