@@ -42,7 +42,7 @@
 
                                 <form class="form-horizontal" method="POST" action="{{ route('transaksi.store') }}">
                                     @csrf
-                                    <input type="hidden" name="user_id" value="{{$transSiswa->studentProfile->id}}">
+                                    <input type="hidden" name="user_id" value="{{$transSiswa->student->id}}">
                                     <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }}">
                                         <label for="jumlah" class="col-md-4 control-label">Jumlah</label>
 

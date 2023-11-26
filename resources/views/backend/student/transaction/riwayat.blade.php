@@ -33,7 +33,7 @@
                                             <td class="py-2">{{ $data->type }}</td>
                                             <td class="py-2">Rp. {{ number_format(intval($data->amount), 0, ',', '.') }}
                                             </td>
-                                            <td class="py-2">{{ $data->created_at }}</td>
+                                            <td class="py-2">{{ $data->updated_at }}</td>
 
                                             <td class="py-2">
                                                 <div class="d-flex justify-content-end" style="gap: 5px">

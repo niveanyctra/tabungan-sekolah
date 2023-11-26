@@ -19,7 +19,7 @@ class CheckRole
         if ($role == 'superadmin' && auth()->user()->role_id != 1) {
             abort(403);
         }
-        if ($role == 'admin' && auth()->user()->role_id != 2) {
+        if ($role == 'admin' && auth()->user()->role_id != 2 && auth()->user()->role_id != 1) {
             abort(403);
         }
         if ($role == 'ht' && auth()->user()->role_id != 3) {

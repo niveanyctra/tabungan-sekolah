@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Tabungan-Sekolah</title>
-    <style>
+    <style type="text/css">
         /* Define print styles */
         @media print {
             body {
@@ -40,13 +40,7 @@
                 <td>:</td>
                 <td>{{$trans->user->name}}</td>
             </tr>
-            @if($trans->type == "Transfer")
-            <tr>
-                <td>Nama Penerima</td>
-                <td>:</td>
-                <td>{{$penerima->name}}</td>
-            </tr>
-            @endif
+
             {{-- <tr>
                 <td>Jurusan :</td>
                 <td>Tanggal :</td>

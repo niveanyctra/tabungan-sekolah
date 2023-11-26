@@ -15,7 +15,7 @@ class VocationalController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('manage-vocationals')){
+        if (Gate::denies('manage-vocationals')) {
             abort(403);
         }
 
@@ -85,7 +85,7 @@ class VocationalController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|unique:vocationals,name,' . $vocational->id .'|max:255',
+            'name' => 'required|unique:vocationals,name,' . $vocational->id . '|max:255',
         ], [
             'name.required' => 'Nama harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
@@ -105,16 +105,16 @@ class VocationalController extends Controller
     {
         $vocational = Vocational::with('classrooms.studentProfiles')->find($id);
 
-    if (!$vocational) {
-        abort(404);
-    }
+        if (!$vocational) {
+            abort(404);
+        }
 
-    foreach ($vocational->classrooms as $classroom) {
-        $classroom->studentProfiles()->update(['classroom_id' => null]);
-        $classroom->delete();
-    }
+        foreach ($vocational->classrooms as $classroom) {
+            $classroom->studentProfiles()->update(['classroom_id' => null]);
+            $classroom->delete();
+        }
 
-    $vocational->delete();
+        $vocational->delete();
 
         return redirect()->route('admin.vocationals.index')->withSuccess('Pengguna berhasil dihapus!');
     }

@@ -24,7 +24,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($trans as $data)
+                                    @foreach ($riwayat as $data)
                                         <tr>
                                             <td class="py-2">{{ $loop->iteration }}</td>
                                             <td class="py-2">{{ $data->user->name }}</td>

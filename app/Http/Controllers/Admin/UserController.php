@@ -19,16 +19,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('manage-users')){
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
 
         $users = User::with(['roles', 'student', 'student.classroom', 'student.classroom.vocational'])
-        ->get()
-        ->sortBy('student')
-        ->sortBy('name')
-        ->sortBy('student.classroom')
-        ->sortBy('roles.id');
+            ->get()
+            ->sortBy('student')
+            ->sortBy('name')
+            ->sortBy('student.classroom')
+            ->sortBy('roles.id');
         return view('backend.admin.users.index', compact('users'));
     }
 
@@ -121,8 +121,7 @@ class UserController extends Controller
             $user->student()->create([
                 'classroom_id' => $request->classroom_id,
             ]);
-        }
-        else if($request->role_id == 3 ) {
+        } else if ($request->role_id == 3) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -131,8 +130,7 @@ class UserController extends Controller
                 'role_id' => $request->role_id,
             ]);
             $user->teacher()->create();
-        }
-        else {
+        } else {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -164,7 +162,7 @@ class UserController extends Controller
             abort(404);
         }
 
-        return view('backend.admin.users.edit', compact('user','roles','vocationals', 'classrooms', 'classroomsByVocational'));
+        return view('backend.admin.users.edit', compact('user', 'roles', 'vocationals', 'classrooms', 'classroomsByVocational'));
     }
 
     /**
@@ -180,7 +178,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id .'|min:5|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id . '|min:5|max:255',
             'password' => 'nullable|confirmed|min:5|max:255',
             'role_id' => 'required|in:1,2,3,4',
         ], [

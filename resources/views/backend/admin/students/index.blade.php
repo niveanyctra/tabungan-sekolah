@@ -57,7 +57,7 @@
                                                 @endif
                                             </td>
                                             <td class="py-2 text-center">{{ $user->email }}</td>
-                                            <td class="py-2 text-center">Rp. {{ $user->student->jumlah }}</td>
+                                            <td class="py-2 text-center">Rp. {{ number_format(intval($user->student->jumlah), 0, ',', '.') }}</td>
                                             <td class="py-2">
                                                 <div class="d-flex justify-content-end" style="gap: 5px">
                                                     @if ($user->status == '0')

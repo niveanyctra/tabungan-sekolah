@@ -29,12 +29,9 @@
                 @include('backend.admin.navigation-menu')
             @endif
             @if (auth()->user()->role_id == 3)
-                @include('backend.teacher.navigation-menu')
+                @include('backend.homeroom-teacher.navigation-menu')
             @endif
             @if (auth()->user()->role_id == 4)
-                @include('backend.student.navigation-menu')
-            @endif
-            @if (auth()->user()->role_id == 5)
                 @include('backend.student.navigation-menu')
             @endif
 

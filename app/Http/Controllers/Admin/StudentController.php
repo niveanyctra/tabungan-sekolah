@@ -14,15 +14,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('manage-students')){
+        if (Gate::denies('manage-students')) {
             abort(403);
         }
 
         $users = User::with(['student', 'student.classroom', 'student.classroom.vocational'])
-        ->where('role_id', 4)
-        ->orderby('status')
-        ->get()
-        ->sortBy('student.classroom.vocational.name');
+            ->where('role_id', 4)
+            ->orderby('status')
+            ->get()
+            ->sortBy('student.classroom.vocational.name');
         return view('backend.admin.students.index', compact('users'));
     }
 
