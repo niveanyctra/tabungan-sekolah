@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-primary border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-primary border-b border-info">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,28 +12,28 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link  class="text-white" href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                    <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
+                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
                         {{ __('User') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.status.index') }}" :active="request()->routeIs('admin.status.*')">
+                    <x-nav-link href="{{ route('admin.status.index') }}" :active="request()->routeIs('admin.status.*')">
                         {{ __('Activation') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.vocationals.index') }}" :active="request()->routeIs('admin.vocationals.*')">
+                    <x-nav-link href="{{ route('admin.vocationals.index') }}" :active="request()->routeIs('admin.vocationals.*')">
                         {{ __('Jurusan') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
+                    <x-nav-link href="{{ route('admin.classrooms.index') }}" :active="request()->routeIs('admin.classrooms.*')">
                         {{ __('Kelas') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.students.index') }}" :active="request()->routeIs('admin.students.*')">
+                    <x-nav-link href="{{ route('admin.students.index') }}" :active="request()->routeIs('admin.students.*')">
                         {{ __('Siswa') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.transaction.confirm') }}" :active="request()->routeIs('admin.transaction.confirm')">
+                    <x-nav-link href="{{ route('admin.transaction.confirm') }}" :active="request()->routeIs('admin.transaction.confirm')">
                         {{ __('Confirmation') }}
                     </x-nav-link>
-                    <x-nav-link  class="text-white" href="{{ route('admin.transaction.index') }}" :active="request()->routeIs('admin.transaction.index')">
+                    <x-nav-link href="{{ route('admin.transaction.index') }}" :active="request()->routeIs('admin.transaction.index')">
                         {{ __('Transaction') }}
                     </x-nav-link>
                 </div>

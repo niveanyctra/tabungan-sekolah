@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-primary border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-blue border-b border-info">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -16,7 +16,7 @@
                         <x-nav-link class="text-white" href="{{ route('tabungan-sekolah') }}" :active="request()->routeIs('tabungan-sekolah')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link class="text-white" href="{{ url('/transaksi/riwayat/' . $auth->id) }}"
+                        <x-nav-link class="text-white" href="{{ url('/transaksi/riwayat/' . Auth::user()->id) }}"
                             :active="request()->routeIs('transaksiRiwayat')">
                             {{ __('Riwayat') }}
                         </x-nav-link>
