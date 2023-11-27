@@ -10,6 +10,7 @@
                 <div class="flex items-center">
                     <div class="w-1/2">
                         <h3>Selamat Datang, {{$auth->name}}</h3>
+
                         <div class="bg-info rounded-4 d-inline-block p-2">
                             <div class="fw-semibold fs-5 py-1 px-2"><i class="fa-solid fa-wallet"></i> Saldo Kamu :
                                 <span class="fw-light">{{ number_format(intval($profile->jumlah), 0, ',', '.') }}</span>
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                     <div class="w-1/2 flex justify-end">
-                        <img class="h-35 w-40" src="{{ asset('img/tabungan.png') }}" alt="Terdapat Kesalahan">
+                        <img width="200" height="100" src="{{ asset('img/tabungan.png') }}" alt="Terdapat Kesalahan">
                     </div>
                 </div>
             </div>
