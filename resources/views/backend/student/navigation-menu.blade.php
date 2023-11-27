@@ -12,15 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link class="text-white" href="{{ route('tabungan-sekolah') }}" :active="request()->routeIs('tabungan-sekolah')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @if (isset($auth))
-                        <!-- Your navigation code here -->
-                        <x-nav-link  class="text-white" href="{{ url('/transaksi/riwayat/' . $auth->id) }}" :active="request()->routeIs('transaksiRiwayat')">
+                    @can('students-active')
+                        <x-nav-link class="text-white" href="{{ route('tabungan-sekolah') }}" :active="request()->routeIs('tabungan-sekolah')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link class="text-white" href="{{ url('/transaksi/riwayat/' . $auth->id) }}"
+                            :active="request()->routeIs('transaksiRiwayat')">
                             {{ __('Riwayat') }}
                         </x-nav-link>
-                    @endif
+                    @endcan
                 </div>
             </div>
 
