@@ -18,19 +18,19 @@ class TransactionSeeder extends Seeder
         $transactions = [
             [
                 'no_transaksi' => 'TR-00001',
-                'user_id' => 6,
+                'user_id' => 4,
                 'type' => 'Tarik',
                 'amount' =>  1000,
             ],
             [
                 'no_transaksi' => 'TR-00002',
-                'user_id' => 6,
+                'user_id' => 4,
                 'type' => 'Setor',
                 'amount' =>  5000,
             ],
             [
                 'no_transaksi' => 'TR-00003',
-                'user_id' => 6,
+                'user_id' => 4,
                 'type' => 'Tarik',
                 'amount' =>  6000,
             ],

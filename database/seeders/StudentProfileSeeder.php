@@ -21,18 +21,6 @@ class StudentProfileSeeder extends Seeder
                 'classroom_id' => 1,
                 'jumlah' =>  0,
             ],
-            [
-                'id' => 5,
-                // 'username' => 'student',
-                'classroom_id' => 1,
-                'jumlah' =>  0,
-            ],
-            [
-                'id' => 6,
-                // 'username' => 'student',
-                'classroom_id' => 1,
-                'jumlah' =>  0,
-            ],
         ];
         foreach ($studentProfile as $data){
             StudentProfile::insert([
